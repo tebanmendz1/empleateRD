@@ -1,0 +1,626 @@
+Objetivo General
+
+Desarrollar una plataforma web moderna, rápida e intuitiva para conectar empresas con candidatos mediante inteligencia artificial, automatización y herramientas avanzadas de reclutamiento.
+
+La plataforma debe competir con Aldaba, Computrabajo e Indeed, ofreciendo una experiencia mucho más sencilla, precios flexibles y funciones inteligentes.
+
+No será únicamente una página para publicar vacantes; será un ecosistema completo de reclutamiento.
+
+Público objetivo
+Empresas
+Microempresas
+PYMES
+Grandes empresas
+Agencias de reclutamiento
+Zonas francas
+Call Centers
+Bancos
+Hospitales
+Universidades
+Comercios
+Hoteles
+Restaurantes
+Candidatos
+Primer empleo
+Estudiantes
+Técnicos
+Profesionales
+Freelancers
+Trabajos remotos
+Trabajos presenciales
+Trabajos híbridos
+Tecnologías
+
+Frontend
+
+Next.js
+React
+TypeScript
+TailwindCSS
+Framer Motion
+
+Backend
+
+Laravel 12
+PHP 8.4
+REST API
+API Versionada
+
+Base de datos
+
+PostgreSQL
+
+Cache
+
+Redis
+
+Archivos
+
+S3 Compatible
+
+Buscador
+
+Elasticsearch/OpenSearch
+
+Notificaciones
+
+Email
+WhatsApp
+Push Notifications
+
+Infraestructura
+
+Docker
+Traefik
+GitHub Actions
+VPS
+Módulos principales
+Landing Page
+
+Debe transmitir confianza.
+
+Debe incluir
+
+Hero
+
+Buscador grande
+
+Buscar empleo
+
+Buscar empresa
+
+Categorías
+
+Vacantes destacadas
+
+Empresas destacadas
+
+Trabajos remotos
+
+Primer empleo
+
+Empleos recientes
+
+Blog
+
+Testimonios
+
+Estadísticas
+
+Footer completo
+
+Portal de Vacantes
+
+Filtros por
+
+Ciudad
+
+Provincia
+
+Modalidad
+
+Salario
+
+Área
+
+Experiencia
+
+Escolaridad
+
+Idioma
+
+Fecha
+
+Empresa
+
+Urgencia
+
+Tipo de contrato
+
+Tiempo completo
+
+Medio tiempo
+
+Freelance
+
+Remoto
+
+Híbrido
+
+Cada vacante mostrará
+
+Logo
+
+Empresa
+
+Descripción
+
+Beneficios
+
+Requisitos
+
+Ubicación
+
+Mapa
+
+Rango salarial
+
+Tipo de empleo
+
+Vacantes disponibles
+
+Fecha
+
+Tiempo restante
+
+Cantidad de postulantes
+
+Nivel de urgencia
+
+Botón Aplicar
+
+Guardar
+
+Compartir
+
+Reportar
+
+Dashboard Empresas
+
+Registro
+
+RNC opcional inicialmente
+
+Validación de correo
+
+Logo
+
+Portada
+
+Descripción
+
+Ubicación
+
+Redes sociales
+
+Panel principal
+
+Dashboard
+
+Vacantes
+
+Candidatos
+
+Entrevistas
+
+Mensajes
+
+Facturas
+
+Pagos
+
+Configuración
+
+Estadísticas
+
+IA
+
+Publicación Inteligente
+
+En lugar de elegir un plan, el sistema realizará un asistente.
+
+Pregunta 1
+
+¿Cuántas vacantes desea publicar?
+
+Pregunta 2
+
+¿Por cuánto tiempo?
+
+7 días
+
+15 días
+
+30 días
+
+60 días
+
+Pregunta 3
+
+¿Cuántos postulantes desea recibir aproximadamente?
+
+20
+
+50
+
+100
+
+200
+
+Ilimitados
+
+Pregunta 4
+
+¿Qué tan urgente es la contratación?
+
+Sin prisa
+
+Urgente
+
+Muy urgente
+
+Hoy mismo
+
+Pregunta 5
+
+¿Desea mayor visibilidad?
+
+Sí
+
+No
+
+Pregunta 6
+
+¿Desea que la IA clasifique automáticamente los candidatos?
+
+Sí
+
+No
+
+Pregunta 7
+
+¿Desea difusión por correo y notificaciones automáticas a candidatos compatibles?
+
+Sí
+
+No
+
+Con esas respuestas el sistema calcula automáticamente el mejor paquete.
+
+Ejemplo
+
+"De acuerdo con sus necesidades recomendamos este paquete"
+
+3 Vacantes
+
+30 días
+
+100 candidatos
+
+Vacante destacada
+
+Difusión automática
+
+IA Recruit
+
+RD$2,490
+
+IA Recruit
+
+La IA analizará
+
+Currículum
+
+Experiencia
+
+Idiomas
+
+Ubicación
+
+Salario esperado
+
+Habilidades
+
+Palabras clave
+
+Disponibilidad
+
+Compatibilidad
+
+Generará automáticamente
+
+Porcentaje de compatibilidad
+
+Resumen
+
+Fortalezas
+
+Debilidades
+
+Ranking
+
+Preguntas sugeridas para entrevista
+
+Dashboard Candidato
+
+Perfil
+
+Currículum
+
+Experiencia
+
+Educación
+
+Cursos
+
+Idiomas
+
+Habilidades
+
+Certificaciones
+
+Portafolio
+
+Preferencias laborales
+
+Salario esperado
+
+Disponibilidad
+
+Aplicaciones
+
+Estado
+
+Empresa
+
+Fecha
+
+Entrevistas
+
+Mensajes
+
+Ofertas
+
+Constructor de CV
+
+Plantillas profesionales
+
+PDF
+
+Colores
+
+Foto
+
+Código QR
+
+Enlace público
+
+Blog
+
+Categorías
+
+Entrevistas
+
+Currículum
+
+Tecnología
+
+Recursos Humanos
+
+Empresas
+
+Universidades
+
+Cursos
+
+Salarios
+
+Derecho Laboral
+
+IA
+
+Noticias
+
+Todo optimizado para SEO.
+
+Panel Administrador
+
+Dashboard
+
+Usuarios
+
+Empresas
+
+Vacantes
+
+Pagos
+
+Facturas
+
+Publicidad
+
+Blog
+
+Moderación
+
+Soporte
+
+Configuración
+
+Analíticas
+
+IA
+
+Reportes
+
+Monetización
+1. Publicaciones inteligentes
+
+El precio depende de
+
+Cantidad de vacantes
+
+Tiempo
+
+Cantidad de postulantes
+
+Urgencia
+
+Extras
+
+2. Vacantes destacadas
+
+Primera página
+
+Resultados
+
+Inicio
+
+3. Empresas patrocinadas
+
+Banner
+
+Logo
+
+Perfil destacado
+
+4. Google AdSense
+
+Solo en
+
+Blog
+
+Noticias
+
+Guías
+
+No mostrar anuncios durante el proceso de aplicación para no afectar la experiencia del usuario.
+
+5. Publicidad directa
+
+Venta de banners a:
+
+Universidades
+
+Institutos
+
+Bancos
+
+Seguros
+
+Software
+
+Cursos
+
+Eventos
+
+Empresas
+
+6. Servicios Premium
+
+Diseño de CV
+
+Corrección de CV
+
+Evaluación psicométrica
+
+Pruebas técnicas
+
+Verificación de referencias
+
+Verificación de identidad
+
+Gamificación
+
+Insignias
+
+Empresa verificada
+
+Empresa Premium
+
+Contrata rápido
+
+Top Employer
+
+Candidato destacado
+
+Perfil completo
+
+Respuesta rápida
+
+Notificaciones
+
+Correo
+
+WhatsApp
+
+Push
+
+SMS (opcional)
+
+Aplicación con un clic
+
+El candidato solo presiona Aplicar.
+
+La empresa recibe inmediatamente:
+
+CV
+Perfil
+Compatibilidad con IA
+Experiencia
+Datos de contacto
+Seguridad
+
+2FA
+
+Google Login
+
+Microsoft Login
+
+Apple Login
+
+Cloudflare
+
+Rate Limit
+
+Captcha
+
+Protección contra bots
+
+Logs
+
+Backups automáticos
+
+Escalabilidad
+
+El sistema debe ser multiempresa (multi-tenant) y estar preparado para operar en varios países sin modificar el código fuente.
+
+Cada país tendrá:
+
+Moneda propia.
+Provincias/estados.
+Ciudades.
+Idioma.
+Legislación laboral configurable.
+Dominio propio o subdominio.
+Configuración independiente de impuestos y métodos de pago.
+
+Esto permitirá iniciar en República Dominicana y expandirse posteriormente a otros mercados de Latinoamérica con una sola plataforma.
+
+Diferenciadores clave
+Motor de recomendación por IA para empresas y candidatos.
+Asistente inteligente de contratación que genera una propuesta personalizada en lugar de planes fijos.
+Precios dinámicos basados en vacantes, duración, volumen de postulantes y nivel de visibilidad.
+SEO como canal de adquisición, con un blog de alto valor para atraer tráfico orgánico.
+Arquitectura API First, preparada para futuras aplicaciones móviles e integraciones con sistemas de recursos humanos.
+Automatización integral, incluyendo recordatorios, seguimiento de candidatos y difusión inteligente de vacantes.

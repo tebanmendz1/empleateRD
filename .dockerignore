@@ -1,0 +1,12 @@
+.git
+.github
+backend/.env
+backend/.laravel-template-git
+backend/node_modules
+backend/storage/logs/*
+backend/tests
+backend/vendor
+frontend/.env.local
+frontend/.next
+frontend/node_modules
+docs

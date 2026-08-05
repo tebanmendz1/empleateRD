@@ -1,0 +1,64 @@
+# EmpleateRD — seguimiento del proyecto
+
+## Fase 0: definición y base técnica
+
+- [x] Revisar el prompt maestro y la especificación funcional.
+- [x] Separar el MVP de las etapas posteriores.
+- [x] Definir arquitectura inicial y límites de los módulos.
+- [x] Identificar decisiones de producto pendientes.
+- [x] Crear los repositorios/proyectos de frontend y backend.
+- [x] Preparar Docker para desarrollo local.
+- [x] Configurar PostgreSQL y Redis.
+- [x] Configurar integración continua.
+
+## MVP — recorrido público y acceso
+
+- [ ] Landing page adaptable a móviles.
+- [ ] Buscador y listado de vacantes.
+- [ ] Detalle público de vacante y empresa.
+- [ ] Registro e inicio de sesión de candidatos y empresas.
+- [ ] Verificación de correo y recuperación de contraseña.
+
+## MVP — candidatos
+
+- [ ] Perfil profesional por pasos.
+- [ ] Carga de CV con almacenamiento privado.
+- [ ] Preferencias laborales.
+- [ ] Postulación y seguimiento de estados.
+- [ ] Alertas por correo.
+
+## MVP — empresas
+
+- [ ] Perfil empresarial y verificación básica.
+- [ ] Equipo y permisos esenciales.
+- [ ] Cuestionario de cotización dinámica.
+- [ ] Creación, pago, revisión y publicación de vacantes.
+- [ ] Gestión básica de candidatos, mensajes y entrevistas.
+
+## MVP — operación
+
+- [ ] Panel administrativo.
+- [ ] Moderación de empresas y vacantes.
+- [ ] Pagos y comprobantes.
+- [ ] Blog y SEO técnico básico.
+- [ ] Publicidad propia básica.
+- [ ] Reportes, auditoría y métricas esenciales.
+- [ ] Seguridad, copias de respaldo y monitoreo.
+
+## Fuera del MVP
+
+- [ ] Constructor avanzado de CV y ranking asistido.
+- [ ] Base de talentos, WhatsApp, push y calendarios externos.
+- [ ] Pruebas, evaluaciones y aplicación móvil.
+- [ ] API comercial, multi-país y analítica predictiva.
+- [ ] Ferias de empleo, reclutamiento masivo y videollamadas.
+
+## Decisiones pendientes
+
+- [ ] Nombre comercial y dominio definitivo.
+- [ ] Identidad visual inicial.
+- [ ] Proveedor de pagos para República Dominicana.
+- [ ] Proveedor de correo transaccional y almacenamiento S3.
+- [ ] Fórmula y precios iniciales del cotizador.
+- [ ] Política de moderación, privacidad y conservación de datos.
+- [ ] Determinar si Elasticsearch/OpenSearch entra en el MVP o después.
