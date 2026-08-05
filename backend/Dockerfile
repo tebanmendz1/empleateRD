@@ -1,6 +1,6 @@
 FROM dunglas/frankenphp:1-php8.4-alpine AS base
 
-RUN install-php-extensions dom intl mbstring opcache pcntl pdo_pgsql redis zip
+RUN install-php-extensions dom gd intl mbstring opcache pcntl pdo_pgsql redis zip
 
 WORKDIR /app
 

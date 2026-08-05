@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\V1\CandidateDocumentController;
 use App\Http\Controllers\Api\V1\CandidateProfileController;
 use App\Http\Controllers\Api\V1\JobApplicationController;
 use App\Http\Controllers\Api\V1\CandidateCvController;
+use App\Http\Controllers\Api\V1\CandidateCvAnalysisController;
+use App\Http\Controllers\Api\V1\CandidatePhotoController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -42,5 +44,8 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/jobs/{job:slug}/applications', [JobApplicationController::class, 'store'])->middleware('throttle:10,1');
         Route::patch('/applications/{application}/withdraw', [JobApplicationController::class, 'withdraw']);
         Route::get('/cv/export', [CandidateCvController::class, 'export'])->middleware('throttle:10,1');
+        Route::get('/cv/analyze', [CandidateCvAnalysisController::class, 'show'])->middleware('throttle:20,1');
+        Route::post('/cv/photo', [CandidatePhotoController::class, 'store'])->middleware('throttle:10,1');
+        Route::delete('/cv/photo', [CandidatePhotoController::class, 'destroy']);
     });
 });
