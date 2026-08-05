@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\CandidateCvAnalysisController;
 use App\Http\Controllers\Api\V1\CandidatePhotoController;
 use App\Http\Controllers\Api\V1\CompanyProfileController;
 use App\Http\Controllers\Api\V1\CompanyTeamController;
+use App\Http\Controllers\Api\V1\CompanyQuotationController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -58,5 +59,7 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/team', [CompanyTeamController::class, 'store'])->middleware('throttle:10,1');
         Route::patch('/team/{member}', [CompanyTeamController::class, 'update']);
         Route::delete('/team/{member}', [CompanyTeamController::class, 'destroy']);
+        Route::get('/quotations', [CompanyQuotationController::class, 'index']);
+        Route::post('/quotations', [CompanyQuotationController::class, 'store'])->middleware('throttle:20,1');
     });
 });

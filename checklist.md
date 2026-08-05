@@ -31,7 +31,7 @@
 
 - [x] Perfil empresarial y verificación básica.
 - [x] Equipo y permisos esenciales.
-- [ ] Cuestionario de cotización dinámica.
+- [x] Cuestionario de cotización dinámica.
 - [ ] Creación, pago, revisión y publicación de vacantes.
 - [ ] Gestión básica de candidatos, mensajes y entrevistas.
 
