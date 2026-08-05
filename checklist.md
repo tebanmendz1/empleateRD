@@ -13,9 +13,9 @@
 
 ## MVP — recorrido público y acceso
 
-- [ ] Landing page adaptable a móviles.
-- [ ] Buscador y listado de vacantes.
-- [ ] Detalle público de vacante y empresa.
+- [x] Landing page adaptable a móviles.
+- [x] Buscador y listado de vacantes.
+- [x] Detalle público de vacante y empresa.
 - [ ] Registro e inicio de sesión de candidatos y empresas.
 - [ ] Verificación de correo y recuperación de contraseña.
 
