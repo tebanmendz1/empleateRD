@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\CandidatePhotoController;
 use App\Http\Controllers\Api\V1\CompanyProfileController;
 use App\Http\Controllers\Api\V1\CompanyTeamController;
 use App\Http\Controllers\Api\V1\CompanyQuotationController;
+use App\Http\Controllers\Api\V1\CompanyJobController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -61,5 +62,9 @@ Route::prefix('v1')->group(function (): void {
         Route::delete('/team/{member}', [CompanyTeamController::class, 'destroy']);
         Route::get('/quotations', [CompanyQuotationController::class, 'index']);
         Route::post('/quotations', [CompanyQuotationController::class, 'store'])->middleware('throttle:20,1');
+        Route::get('/jobs', [CompanyJobController::class, 'index']);
+        Route::post('/jobs', [CompanyJobController::class, 'store']);
+        Route::put('/jobs/{job}', [CompanyJobController::class, 'update']);
+        Route::post('/jobs/{job}/submit', [CompanyJobController::class, 'submit']);
     });
 });
