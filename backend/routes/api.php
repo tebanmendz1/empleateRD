@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\CandidateCvController;
 use App\Http\Controllers\Api\V1\CandidateCvAnalysisController;
 use App\Http\Controllers\Api\V1\CandidatePhotoController;
 use App\Http\Controllers\Api\V1\CompanyProfileController;
+use App\Http\Controllers\Api\V1\CompanyTeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -53,5 +54,9 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/profile', [CompanyProfileController::class, 'show']);
         Route::put('/profile', [CompanyProfileController::class, 'update']);
         Route::post('/verification/submit', [CompanyProfileController::class, 'submit'])->middleware('throttle:5,1');
+        Route::get('/team', [CompanyTeamController::class, 'index']);
+        Route::post('/team', [CompanyTeamController::class, 'store'])->middleware('throttle:10,1');
+        Route::patch('/team/{member}', [CompanyTeamController::class, 'update']);
+        Route::delete('/team/{member}', [CompanyTeamController::class, 'destroy']);
     });
 });

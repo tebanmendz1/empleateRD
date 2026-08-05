@@ -109,9 +109,9 @@ export default function Dashboard() {
               text="Completa los datos y solicita verificación."
             />
             <Action
-              href="/panel"
-              title="Candidatos"
-              text="El ATS empresarial se incorporará próximamente."
+              href="/empresa/equipo"
+              title="Equipo y permisos"
+              text="Administra representantes y roles de acceso."
             />
           </div>
         )}
