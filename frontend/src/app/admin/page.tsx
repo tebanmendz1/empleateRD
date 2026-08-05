@@ -10,6 +10,19 @@ type Payment = {
   company: { name: string };
   job: { title: string };
 };
+type Company = {
+  id: number;
+  name: string;
+  legal_name?: string;
+  tax_id?: string;
+  industry?: string;
+  location?: string;
+  website?: string;
+  phone?: string;
+  size?: string;
+  verification_submitted_at: string;
+  members: { name: string; email: string }[];
+};
 type Job = {
   id: number;
   title: string;
@@ -22,12 +35,14 @@ const auth = () => ({
 });
 export default function Admin() {
   const user = useStoredUser(),
+    [companies, setCompanies] = useState<Company[]>([]),
     [payments, setPayments] = useState<Payment[]>([]),
     [jobs, setJobs] = useState<Job[]>([]),
     [error, setError] = useState("");
   function load() {
     api("/admin/moderation", { headers: auth() })
       .then((r) => {
+        setCompanies(r.data.companies);
         setPayments(r.data.payments);
         setJobs(r.data.jobs);
       })
@@ -79,6 +94,60 @@ export default function Admin() {
             {error}
           </p>
         )}
+        <h2 className="mt-8 text-xl font-black">
+          Empresas ({companies.length})
+        </h2>
+        <div className="mt-3 space-y-3">
+          {companies.map((company) => (
+            <article
+              key={company.id}
+              className="rounded-2xl border bg-white p-5"
+            >
+              <b>{company.name}</b>
+              <p className="mt-1 text-sm text-slate-500">
+                {company.legal_name} · RNC/identificación: {company.tax_id} ·{" "}
+                {company.industry}
+              </p>
+              <p className="mt-2 text-sm">
+                {company.location} · {company.phone} · {company.size} empleados
+              </p>
+              {company.website && (
+                <a
+                  href={company.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 block text-sm font-bold text-blue-700"
+                >
+                  Visitar sitio web
+                </a>
+              )}
+              {company.members[0] && (
+                <p className="mt-2 text-sm text-slate-500">
+                  Responsable: {company.members[0].name} ·{" "}
+                  {company.members[0].email}
+                </p>
+              )}
+              <div className="mt-4 flex gap-2">
+                <button
+                  onClick={() =>
+                    review(`/admin/companies/${company.id}/review`, "approve")
+                  }
+                  className="rounded-lg bg-emerald-500 px-3 py-2 text-sm font-bold"
+                >
+                  Verificar empresa
+                </button>
+                <button
+                  onClick={() =>
+                    review(`/admin/companies/${company.id}/review`, "reject")
+                  }
+                  className="rounded-lg bg-rose-100 px-3 py-2 text-sm font-bold text-rose-700"
+                >
+                  Rechazar
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
         <h2 className="mt-8 text-xl font-black">
           Comprobantes ({payments.length})
         </h2>

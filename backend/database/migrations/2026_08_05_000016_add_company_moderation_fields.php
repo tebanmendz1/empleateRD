@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration;use Illuminate\Database\Schema\Blueprint;use Illuminate\Support\Facades\Schema;
+return new class extends Migration{public function up():void{Schema::table('companies',function(Blueprint $t):void{$t->foreignId('verification_reviewed_by')->nullable()->constrained('users')->nullOnDelete();$t->timestamp('verification_reviewed_at')->nullable();$t->text('verification_review_note')->nullable();});}public function down():void{Schema::table('companies',function(Blueprint $t):void{$t->dropConstrainedForeignId('verification_reviewed_by');$t->dropColumn(['verification_reviewed_at','verification_review_note']);});}};

@@ -38,7 +38,7 @@
 ## MVP — operación
 
 - [x] Panel administrativo.
-- [ ] Moderación de empresas y vacantes.
+- [x] Moderación de empresas y vacantes.
 - [x] Pagos y comprobantes.
 - [ ] Blog y SEO técnico básico.
 - [ ] Publicidad propia básica.
