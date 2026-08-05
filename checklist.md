@@ -21,10 +21,10 @@
 
 ## MVP — candidatos
 
-- [ ] Perfil profesional por pasos.
-- [ ] Carga de CV con almacenamiento privado.
-- [ ] Preferencias laborales.
-- [ ] Postulación y seguimiento de estados.
+- [x] Perfil profesional por pasos.
+- [x] Carga de CV con almacenamiento privado.
+- [x] Preferencias laborales.
+- [x] Postulación y seguimiento de estados.
 - [ ] Alertas por correo.
 
 ## MVP — empresas
