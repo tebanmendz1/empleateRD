@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -37,5 +38,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function jobApplications(): HasMany
     {
         return $this->hasMany(JobApplication::class);
+    }
+
+    public function companies(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class, 'company_members')->withPivot(['role', 'status'])->withTimestamps();
     }
 }

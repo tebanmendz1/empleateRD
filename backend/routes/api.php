@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\JobApplicationController;
 use App\Http\Controllers\Api\V1\CandidateCvController;
 use App\Http\Controllers\Api\V1\CandidateCvAnalysisController;
 use App\Http\Controllers\Api\V1\CandidatePhotoController;
+use App\Http\Controllers\Api\V1\CompanyProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -47,5 +48,10 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/cv/analyze', [CandidateCvAnalysisController::class, 'show'])->middleware('throttle:20,1');
         Route::post('/cv/photo', [CandidatePhotoController::class, 'store'])->middleware('throttle:10,1');
         Route::delete('/cv/photo', [CandidatePhotoController::class, 'destroy']);
+    });
+    Route::middleware('auth:sanctum')->prefix('company')->group(function (): void {
+        Route::get('/profile', [CompanyProfileController::class, 'show']);
+        Route::put('/profile', [CompanyProfileController::class, 'update']);
+        Route::post('/verification/submit', [CompanyProfileController::class, 'submit'])->middleware('throttle:5,1');
     });
 });

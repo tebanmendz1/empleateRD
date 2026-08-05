@@ -29,7 +29,7 @@
 
 ## MVP — empresas
 
-- [ ] Perfil empresarial y verificación básica.
+- [x] Perfil empresarial y verificación básica.
 - [ ] Equipo y permisos esenciales.
 - [ ] Cuestionario de cotización dinámica.
 - [ ] Creación, pago, revisión y publicación de vacantes.
