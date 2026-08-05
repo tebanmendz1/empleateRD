@@ -96,6 +96,12 @@ export default function Admin() {
         >
           Ver métricas y auditoría
         </Link>
+        <Link
+          href="/admin/sistema"
+          className="mt-4 ml-3 inline-block rounded-xl border bg-white px-4 py-2.5 text-sm font-bold"
+        >
+          Estado del sistema
+        </Link>
         {error && (
           <p className="mt-5 rounded-xl bg-rose-50 p-3 text-rose-700">
             {error}

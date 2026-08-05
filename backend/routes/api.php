@@ -18,16 +18,11 @@ use App\Http\Controllers\Api\V1\PublicJobController;
 use App\Http\Controllers\Api\V1\CompanyCandidateController;
 use App\Http\Controllers\Api\V1\CandidateProcessController;
 use App\Http\Controllers\Api\V1\ReportController;
+use App\Http\Controllers\Api\V1\SystemHealthController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
-    Route::get('/health', fn () => response()->json([
-        'data' => [
-            'service' => 'EmpleateRD API',
-            'status' => 'ok',
-            'version' => 'v1',
-        ],
-    ]));
+    Route::get('/health', [SystemHealthController::class, 'readiness']);
     Route::get('/jobs', [PublicJobController::class, 'index']);
     Route::get('/jobs/{job:slug}', [PublicJobController::class, 'show']);
 
@@ -95,5 +90,6 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/payments/{payment}/review', [AdminModerationController::class, 'reviewPayment']);
         Route::post('/jobs/{job}/review', [AdminModerationController::class, 'reviewJob']);
         Route::get('/reports', [ReportController::class, 'admin']);
+        Route::get('/system-health', [SystemHealthController::class, 'details']);
     });
 });

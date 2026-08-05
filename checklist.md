@@ -43,7 +43,7 @@
 - [x] Blog y SEO técnico básico.
 - [x] Publicidad propia básica.
 - [x] Reportes, auditoría y métricas esenciales.
-- [ ] Seguridad, copias de respaldo y monitoreo.
+- [x] Seguridad, copias de respaldo y monitoreo.
 
 ## Fuera del MVP
 

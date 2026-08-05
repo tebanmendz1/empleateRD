@@ -27,6 +27,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    volumes:
+      - backup_data:/app/storage/app/private/backups
 
   queue:
     build: ./backend
@@ -74,3 +76,4 @@ services:
 
 volumes:
   postgres_data:
+  backup_data:
