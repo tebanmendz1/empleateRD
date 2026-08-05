@@ -1,2 +1,115 @@
-import Link from "next/link"; import {JobCard} from "@/components/job-card"; import {categories,jobs} from "@/data/jobs";
-export default function Home(){return <main><section className="hero-grid overflow-hidden bg-slate-950 text-white"><div className="mx-auto max-w-6xl px-5 py-20 sm:py-28"><p className="mb-4 text-sm font-bold uppercase tracking-[.2em] text-emerald-400">Oportunidades en República Dominicana</p><h1 className="max-w-3xl text-4xl font-black leading-tight sm:text-6xl">El próximo paso de tu carrera comienza aquí.</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Encuentra empleos relevantes y conecta con empresas confiables de forma simple y transparente.</p><form action="/empleos" className="mt-10 grid gap-3 rounded-2xl bg-white p-3 shadow-2xl sm:grid-cols-[1fr_.7fr_auto]"><input name="q" aria-label="Cargo o palabra clave" className="rounded-xl border border-slate-200 px-4 py-4 text-slate-900" placeholder="Cargo, habilidad o palabra clave"/><select name="location" aria-label="Ubicación" className="rounded-xl border border-slate-200 px-4 py-4 text-slate-700"><option value="">Todo el país</option><option>Distrito Nacional</option><option>Santo Domingo</option><option>Santiago</option></select><button className="rounded-xl bg-emerald-500 px-7 py-4 font-extrabold text-slate-950">Buscar empleos</button></form></div></section><section className="mx-auto max-w-6xl px-5 py-16"><div className="flex items-end justify-between"><div><p className="text-sm font-bold uppercase text-blue-700">Oportunidades recientes</p><h2 className="mt-2 text-3xl font-black text-slate-900">Vacantes para ti</h2></div><Link href="/empleos" className="font-bold text-blue-700">Ver todas →</Link></div><div className="mt-8 grid gap-5 lg:grid-cols-2">{jobs.slice(0,4).map(job=><JobCard key={job.slug} job={job}/>)}</div></section><section className="border-y border-slate-200 bg-white"><div className="mx-auto max-w-6xl px-5 py-16"><h2 className="text-3xl font-black text-slate-900">Explora por área</h2><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{categories.map(category=><Link key={category} href={`/empleos?category=${encodeURIComponent(category)}`} className="rounded-2xl border border-slate-200 p-6 font-extrabold hover:border-blue-300 hover:text-blue-700">{category}<span className="mt-2 block text-sm font-normal text-slate-500">Ver oportunidades →</span></Link>)}</div></div></section><section id="empresas" className="bg-blue-50"><div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2 md:items-center"><div><p className="text-sm font-bold uppercase text-blue-700">Para empresas</p><h2 className="mt-2 text-3xl font-black text-slate-900">Publica según lo que realmente necesitas.</h2><p className="mt-4 leading-7 text-slate-600">Sin planes rígidos: recibe una configuración basada en tu necesidad.</p></div><div className="rounded-3xl bg-white p-7 shadow-sm"><p className="font-extrabold">Obtén una recomendación personalizada</p><Link href="/publicar" className="mt-6 block rounded-xl bg-blue-700 px-5 py-3.5 text-center font-extrabold text-white">Calcular publicación</Link></div></div></section></main>}
+import Link from "next/link";
+import { JobCard } from "@/components/job-card";
+import { categories, jobs } from "@/data/jobs";
+export default function Home() {
+  return (
+    <main>
+      <section className="hero-grid overflow-hidden bg-slate-950 text-white">
+        <div className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
+          <p className="mb-4 text-sm font-bold uppercase tracking-[.2em] text-emerald-400">
+            Oportunidades en República Dominicana
+          </p>
+          <h1 className="max-w-3xl text-4xl font-black leading-tight sm:text-6xl">
+            El próximo paso de tu carrera comienza aquí.
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            Encuentra empleos relevantes y conecta con empresas confiables de
+            forma simple y transparente.
+          </p>
+          <form
+            action="/empleos"
+            className="mt-10 grid gap-3 rounded-2xl bg-white p-3 shadow-2xl sm:grid-cols-[1fr_.7fr_auto]"
+          >
+            <input
+              name="q"
+              aria-label="Cargo o palabra clave"
+              className="rounded-xl border border-slate-200 px-4 py-4 text-slate-900"
+              placeholder="Cargo, habilidad o palabra clave"
+            />
+            <select
+              name="location"
+              aria-label="Ubicación"
+              className="rounded-xl border border-slate-200 px-4 py-4 text-slate-700"
+            >
+              <option value="">Todo el país</option>
+              <option>Distrito Nacional</option>
+              <option>Santo Domingo</option>
+              <option>Santiago</option>
+            </select>
+            <button className="rounded-xl bg-emerald-500 px-7 py-4 font-extrabold text-slate-950">
+              Buscar empleos
+            </button>
+          </form>
+        </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-5 py-16">
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-sm font-bold uppercase text-blue-700">
+              Oportunidades recientes
+            </p>
+            <h2 className="mt-2 text-3xl font-black text-slate-900">
+              Vacantes para ti
+            </h2>
+          </div>
+          <Link href="/empleos" className="font-bold text-blue-700">
+            Ver todas →
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          {jobs.slice(0, 4).map((job) => (
+            <JobCard key={job.slug} job={job} />
+          ))}
+        </div>
+      </section>
+      <section className="border-y border-slate-200 bg-white">
+        <div className="mx-auto max-w-6xl px-5 py-16">
+          <h2 className="text-3xl font-black text-slate-900">
+            Explora por área
+          </h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {categories.map((category) => (
+              <Link
+                key={category}
+                href={`/empleos?category=${encodeURIComponent(category)}`}
+                className="rounded-2xl border border-slate-200 p-6 font-extrabold hover:border-blue-300 hover:text-blue-700"
+              >
+                {category}
+                <span className="mt-2 block text-sm font-normal text-slate-500">
+                  Ver oportunidades →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="empresas" className="bg-blue-50">
+        <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2 md:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase text-blue-700">
+              Para empresas
+            </p>
+            <h2 className="mt-2 text-3xl font-black text-slate-900">
+              Publica según lo que realmente necesitas.
+            </h2>
+            <p className="mt-4 leading-7 text-slate-600">
+              Sin planes rígidos: recibe una configuración basada en tu
+              necesidad.
+            </p>
+          </div>
+          <div className="rounded-3xl bg-white p-7 shadow-sm">
+            <p className="font-extrabold">
+              Obtén una recomendación personalizada
+            </p>
+            <Link
+              href="/publicar"
+              className="mt-6 block rounded-xl bg-blue-700 px-5 py-3.5 text-center font-extrabold text-white"
+            >
+              Calcular publicación
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

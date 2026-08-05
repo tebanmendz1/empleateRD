@@ -1,3 +1,64 @@
-import type {Metadata} from "next";import {notFound} from "next/navigation";import {JobCard} from "@/components/job-card";import {getCompany,jobs} from "@/data/jobs";
-export function generateStaticParams(){return [...new Set(jobs.map(j=>j.companySlug))].map(slug=>({slug}))} export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const c=getCompany((await params).slug);return c?{title:c.name,description:`Vacantes disponibles en ${c.name}.`}:{}}
-export default async function CompanyPage({params}:{params:Promise<{slug:string}>}){const c=getCompany((await params).slug);if(!c)notFound();return <main className="min-h-[70vh] bg-slate-50"><section className="border-b bg-white"><div className="mx-auto flex max-w-6xl items-center gap-5 px-5 py-12"><div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-blue-50 text-2xl font-black text-blue-700">{c.initials}</div><div><p className="text-sm font-bold text-emerald-600">Empresa activa</p><h1 className="mt-1 text-3xl font-black">{c.name}</h1><p className="mt-2 text-slate-500">República Dominicana · Perfil empresarial</p></div></div></section><div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 lg:grid-cols-[.7fr_1.3fr]"><section className="h-fit rounded-2xl border bg-white p-6"><h2 className="text-xl font-extrabold">Sobre la empresa</h2><p className="mt-4 leading-7 text-slate-600">Organización dominicana comprometida con oportunidades de crecimiento y una contratación transparente.</p><p className="mt-6 text-sm font-bold">Vacantes activas: <span className="font-normal text-slate-500">{c.jobs.length}</span></p></section><section><h2 className="text-2xl font-black">Vacantes disponibles</h2><div className="mt-5 grid gap-5">{c.jobs.map(j=><JobCard key={j.slug} job={j}/>)}</div></section></div></main>}
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { JobCard } from "@/components/job-card";
+import { getCompany, jobs } from "@/data/jobs";
+export function generateStaticParams() {
+  return [...new Set(jobs.map((j) => j.companySlug))].map((slug) => ({ slug }));
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const c = getCompany((await params).slug);
+  return c
+    ? { title: c.name, description: `Vacantes disponibles en ${c.name}.` }
+    : {};
+}
+export default async function CompanyPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const c = getCompany((await params).slug);
+  if (!c) notFound();
+  return (
+    <main className="min-h-[70vh] bg-slate-50">
+      <section className="border-b bg-white">
+        <div className="mx-auto flex max-w-6xl items-center gap-5 px-5 py-12">
+          <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-blue-50 text-2xl font-black text-blue-700">
+            {c.initials}
+          </div>
+          <div>
+            <p className="text-sm font-bold text-emerald-600">Empresa activa</p>
+            <h1 className="mt-1 text-3xl font-black">{c.name}</h1>
+            <p className="mt-2 text-slate-500">
+              República Dominicana · Perfil empresarial
+            </p>
+          </div>
+        </div>
+      </section>
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 lg:grid-cols-[.7fr_1.3fr]">
+        <section className="h-fit rounded-2xl border bg-white p-6">
+          <h2 className="text-xl font-extrabold">Sobre la empresa</h2>
+          <p className="mt-4 leading-7 text-slate-600">
+            Organización dominicana comprometida con oportunidades de
+            crecimiento y una contratación transparente.
+          </p>
+          <p className="mt-6 text-sm font-bold">
+            Vacantes activas:{" "}
+            <span className="font-normal text-slate-500">{c.jobs.length}</span>
+          </p>
+        </section>
+        <section>
+          <h2 className="text-2xl font-black">Vacantes disponibles</h2>
+          <div className="mt-5 grid gap-5">
+            {c.jobs.map((j) => (
+              <JobCard key={j.slug} job={j} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}

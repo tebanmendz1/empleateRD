@@ -184,9 +184,9 @@ export default function CompanyTeam() {
           ))}
         </div>
         <div className="mt-6 grid gap-3 text-sm sm:grid-cols-3">
-        <Role
-          title="Administrador"
-          text="Gestiona vacantes y procesos empresariales."
+          <Role
+            title="Administrador"
+            text="Gestiona vacantes y procesos empresariales."
           />
           <Role title="Reclutador" text="Trabaja con vacantes y candidatos." />
           <Role

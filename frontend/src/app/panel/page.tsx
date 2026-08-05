@@ -49,6 +49,14 @@ export default function Dashboard() {
             ? "Administra tu perfil y sigue tus oportunidades."
             : "Gestiona tu empresa y sus procesos de contratación."}
         </p>
+        {user.is_admin && (
+          <Link
+            href="/admin"
+            className="mt-5 inline-block rounded-xl bg-slate-900 px-5 py-3 font-bold text-white"
+          >
+            Abrir administración
+          </Link>
+        )}
         {!user.email_verified && (
           <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-800">
             Tu correo aún no está verificado.{" "}

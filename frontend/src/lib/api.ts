@@ -1,4 +1,28 @@
-export const API_URL=process.env.NEXT_PUBLIC_API_URL??"http://localhost:8000/api/v1";
-export type ApiError={message?:string;errors?:Record<string,string[]>};
-export async function api(path:string,options:RequestInit={}){const response=await fetch(`${API_URL}${path}`,{...options,headers:{Accept:"application/json","Content-Type":"application/json",...options.headers}});const body=await response.json().catch(()=>({}));if(!response.ok){const error=body as ApiError;throw new Error(error.errors?Object.values(error.errors).flat()[0]:error.message??"No pudimos completar la solicitud.");}return body;}
-export function saveSession(token:string,user:unknown){localStorage.setItem("empleaterd_token",token);localStorage.setItem("empleaterd_user",JSON.stringify(user));window.dispatchEvent(new Event("empleaterd-session"));}
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+export type ApiError = { message?: string; errors?: Record<string, string[]> };
+export async function api(path: string, options: RequestInit = {}) {
+  const response = await fetch(`${API_URL}${path}`, {
+    ...options,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = body as ApiError;
+    throw new Error(
+      error.errors
+        ? Object.values(error.errors).flat()[0]
+        : (error.message ?? "No pudimos completar la solicitud."),
+    );
+  }
+  return body;
+}
+export function saveSession(token: string, user: unknown) {
+  localStorage.setItem("empleaterd_token", token);
+  localStorage.setItem("empleaterd_user", JSON.stringify(user));
+  window.dispatchEvent(new Event("empleaterd-session"));
+}

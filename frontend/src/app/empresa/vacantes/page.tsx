@@ -8,6 +8,7 @@ type Job = {
   status: string;
   quality_score: number;
   created_at: string;
+  payment?: { status: string } | null;
 };
 const labels: Record<string, string> = {
   draft: "Borrador",
@@ -75,9 +76,19 @@ export default function Jobs() {
                     {new Date(job.created_at).toLocaleDateString("es-DO")}
                   </p>
                 </div>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold">
-                  {labels[job.status] ?? job.status}
-                </span>
+                <div className="flex items-center gap-3">
+                  {job.status === "pending_payment" && (
+                    <Link
+                      href={`/empresa/vacantes/${job.id}/pago`}
+                      className="rounded-xl bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950"
+                    >
+                      {job.payment ? "Ver pago" : "Completar pago"}
+                    </Link>
+                  )}
+                  <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold">
+                    {labels[job.status] ?? job.status}
+                  </span>
+                </div>
               </div>
             ))
           ) : (

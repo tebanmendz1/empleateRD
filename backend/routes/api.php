@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\V1\CompanyProfileController;
 use App\Http\Controllers\Api\V1\CompanyTeamController;
 use App\Http\Controllers\Api\V1\CompanyQuotationController;
 use App\Http\Controllers\Api\V1\CompanyJobController;
+use App\Http\Controllers\Api\V1\CompanyPaymentController;
+use App\Http\Controllers\Api\V1\AdminModerationController;
+use App\Http\Controllers\Api\V1\PublicJobController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -22,6 +25,8 @@ Route::prefix('v1')->group(function (): void {
             'version' => 'v1',
         ],
     ]));
+    Route::get('/jobs', [PublicJobController::class, 'index']);
+    Route::get('/jobs/{job:slug}', [PublicJobController::class, 'show']);
 
     Route::prefix('auth')->group(function (): void {
         Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:6,1');
@@ -66,5 +71,14 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/jobs', [CompanyJobController::class, 'store']);
         Route::put('/jobs/{job}', [CompanyJobController::class, 'update']);
         Route::post('/jobs/{job}/submit', [CompanyJobController::class, 'submit']);
+        Route::get('/jobs/{job}/payment', [CompanyPaymentController::class, 'show']);
+        Route::post('/jobs/{job}/payment', [CompanyPaymentController::class, 'store']);
+        Route::post('/jobs/{job}/payment/proof', [CompanyPaymentController::class, 'upload'])->middleware('throttle:10,1');
+    });
+    Route::middleware('auth:sanctum')->prefix('admin')->group(function (): void {
+        Route::get('/moderation', [AdminModerationController::class, 'queue']);
+        Route::get('/payments/{payment}/proof', [AdminModerationController::class, 'proof']);
+        Route::post('/payments/{payment}/review', [AdminModerationController::class, 'reviewPayment']);
+        Route::post('/jobs/{job}/review', [AdminModerationController::class, 'reviewJob']);
     });
 });

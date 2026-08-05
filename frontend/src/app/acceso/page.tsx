@@ -1,3 +1,90 @@
 "use client";
-import Link from "next/link";import {FormEvent,useState} from "react";import {api,saveSession} from "@/lib/api";
-export default function Access(){const[error,setError]=useState("");const[loading,setLoading]=useState(false);async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setError("");setLoading(true);const f=new FormData(e.currentTarget);try{const result=await api("/auth/login",{method:"POST",body:JSON.stringify({email:f.get("email"),password:f.get("password")})});saveSession(result.data.token,result.data.user);const next=new URLSearchParams(window.location.search).get("next")||"/panel";window.location.href=next}catch(err){setError(err instanceof Error?err.message:"No pudimos iniciar sesión.")}finally{setLoading(false)}}return <main className="flex min-h-[70vh] items-center justify-center bg-slate-50 px-5 py-12"><section className="w-full max-w-md rounded-3xl border bg-white p-8"><h1 className="text-3xl font-black">Iniciar sesión</h1><p className="mt-2 text-slate-500">Continúa tu búsqueda o gestiona tus vacantes.</p>{error&&<p role="alert" className="mt-5 rounded-xl bg-rose-50 p-3 text-sm text-rose-700">{error}</p>}<form onSubmit={submit} className="mt-6 space-y-4"><label className="block text-sm font-bold">Correo<input required type="email" name="email" autoComplete="email" className="mt-2 w-full rounded-xl border p-3.5 font-normal"/></label><label className="block text-sm font-bold">Contraseña<input required type="password" name="password" autoComplete="current-password" className="mt-2 w-full rounded-xl border p-3.5 font-normal"/></label><div className="text-right"><Link href="/recuperar" className="text-sm font-bold text-blue-700">¿Olvidaste tu contraseña?</Link></div><button disabled={loading} className="w-full rounded-xl bg-blue-700 p-4 font-extrabold text-white disabled:opacity-60">{loading?"Ingresando…":"Iniciar sesión"}</button></form><p className="mt-6 text-center text-sm text-slate-600">¿No tienes cuenta? <Link href="/registro" className="font-bold text-blue-700">Regístrate</Link></p></section></main>}
+import Link from "next/link";
+import { FormEvent, useState } from "react";
+import { api, saveSession } from "@/lib/api";
+export default function Access() {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    const f = new FormData(e.currentTarget);
+    try {
+      const result = await api("/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: f.get("email"),
+          password: f.get("password"),
+        }),
+      });
+      saveSession(result.data.token, result.data.user);
+      const next =
+        new URLSearchParams(window.location.search).get("next") || "/panel";
+      window.location.href = next;
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "No pudimos iniciar sesión.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+  return (
+    <main className="flex min-h-[70vh] items-center justify-center bg-slate-50 px-5 py-12">
+      <section className="w-full max-w-md rounded-3xl border bg-white p-8">
+        <h1 className="text-3xl font-black">Iniciar sesión</h1>
+        <p className="mt-2 text-slate-500">
+          Continúa tu búsqueda o gestiona tus vacantes.
+        </p>
+        {error && (
+          <p
+            role="alert"
+            className="mt-5 rounded-xl bg-rose-50 p-3 text-sm text-rose-700"
+          >
+            {error}
+          </p>
+        )}
+        <form onSubmit={submit} className="mt-6 space-y-4">
+          <label className="block text-sm font-bold">
+            Correo
+            <input
+              required
+              type="email"
+              name="email"
+              autoComplete="email"
+              className="mt-2 w-full rounded-xl border p-3.5 font-normal"
+            />
+          </label>
+          <label className="block text-sm font-bold">
+            Contraseña
+            <input
+              required
+              type="password"
+              name="password"
+              autoComplete="current-password"
+              className="mt-2 w-full rounded-xl border p-3.5 font-normal"
+            />
+          </label>
+          <div className="text-right">
+            <Link href="/recuperar" className="text-sm font-bold text-blue-700">
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
+          <button
+            disabled={loading}
+            className="w-full rounded-xl bg-blue-700 p-4 font-extrabold text-white disabled:opacity-60"
+          >
+            {loading ? "Ingresando…" : "Iniciar sesión"}
+          </button>
+        </form>
+        <p className="mt-6 text-center text-sm text-slate-600">
+          ¿No tienes cuenta?{" "}
+          <Link href="/registro" className="font-bold text-blue-700">
+            Regístrate
+          </Link>
+        </p>
+      </section>
+    </main>
+  );
+}

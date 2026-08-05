@@ -32,14 +32,14 @@
 - [x] Perfil empresarial y verificación básica.
 - [x] Equipo y permisos esenciales.
 - [x] Cuestionario de cotización dinámica.
-- [ ] Creación, pago, revisión y publicación de vacantes.
+- [x] Creación, pago, revisión y publicación de vacantes.
 - [ ] Gestión básica de candidatos, mensajes y entrevistas.
 
 ## MVP — operación
 
-- [ ] Panel administrativo.
+- [x] Panel administrativo.
 - [ ] Moderación de empresas y vacantes.
-- [ ] Pagos y comprobantes.
+- [x] Pagos y comprobantes.
 - [ ] Blog y SEO técnico básico.
 - [ ] Publicidad propia básica.
 - [ ] Reportes, auditoría y métricas esenciales.

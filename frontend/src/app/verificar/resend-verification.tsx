@@ -1,3 +1,33 @@
 "use client";
-import {useState} from "react";import {api} from "@/lib/api";
-export function ResendVerification(){const[message,setMessage]=useState("");async function resend(){const token=localStorage.getItem("empleaterd_token");if(!token)return setMessage("Inicia sesión para reenviar el enlace.");try{const r=await api("/auth/verification-notification",{method:"POST",headers:{Authorization:`Bearer ${token}`}});setMessage(r.message)}catch(err){setMessage(err instanceof Error?err.message:"No pudimos enviar el enlace.")}}return <div>{message&&<p className="mt-5 rounded-xl bg-blue-50 p-3 text-sm text-blue-800">{message}</p>}<button onClick={resend} className="mt-6 font-bold text-blue-700">Reenviar enlace</button></div>}
+import { useState } from "react";
+import { api } from "@/lib/api";
+export function ResendVerification() {
+  const [message, setMessage] = useState("");
+  async function resend() {
+    const token = localStorage.getItem("empleaterd_token");
+    if (!token) return setMessage("Inicia sesión para reenviar el enlace.");
+    try {
+      const r = await api("/auth/verification-notification", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMessage(r.message);
+    } catch (err) {
+      setMessage(
+        err instanceof Error ? err.message : "No pudimos enviar el enlace.",
+      );
+    }
+  }
+  return (
+    <div>
+      {message && (
+        <p className="mt-5 rounded-xl bg-blue-50 p-3 text-sm text-blue-800">
+          {message}
+        </p>
+      )}
+      <button onClick={resend} className="mt-6 font-bold text-blue-700">
+        Reenviar enlace
+      </button>
+    </div>
+  );
+}

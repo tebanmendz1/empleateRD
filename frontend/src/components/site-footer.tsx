@@ -1,2 +1,29 @@
 import Link from "next/link";
-export function SiteFooter(){return <footer id="recursos" className="bg-slate-950 text-slate-400"><div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:grid-cols-3"><div><p className="font-extrabold text-white">EmpléateRD</p><p className="mt-2 text-sm">Mejores conexiones laborales para República Dominicana.</p></div><div className="text-sm"><p className="font-bold text-white">Explorar</p><div className="mt-3 flex flex-col gap-2"><Link href="/empleos">Vacantes</Link><Link href="/empleos?modality=Remoto">Trabajo remoto</Link></div></div><div className="text-sm"><p className="font-bold text-white">Información</p><p className="mt-3">Privacidad · Términos · Ayuda</p></div></div><div className="border-t border-slate-800 px-5 py-5 text-center text-xs">© 2026 EmpléateRD</div></footer>}
+export function SiteFooter() {
+  return (
+    <footer id="recursos" className="bg-slate-950 text-slate-400">
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:grid-cols-3">
+        <div>
+          <p className="font-extrabold text-white">EmpléateRD</p>
+          <p className="mt-2 text-sm">
+            Mejores conexiones laborales para República Dominicana.
+          </p>
+        </div>
+        <div className="text-sm">
+          <p className="font-bold text-white">Explorar</p>
+          <div className="mt-3 flex flex-col gap-2">
+            <Link href="/empleos">Vacantes</Link>
+            <Link href="/empleos?modality=Remoto">Trabajo remoto</Link>
+          </div>
+        </div>
+        <div className="text-sm">
+          <p className="font-bold text-white">Información</p>
+          <p className="mt-3">Privacidad · Términos · Ayuda</p>
+        </div>
+      </div>
+      <div className="border-t border-slate-800 px-5 py-5 text-center text-xs">
+        © 2026 EmpléateRD
+      </div>
+    </footer>
+  );
+}
