@@ -40,8 +40,8 @@
 - [x] Panel administrativo.
 - [x] Moderación de empresas y vacantes.
 - [x] Pagos y comprobantes.
-- [ ] Blog y SEO técnico básico.
-- [ ] Publicidad propia básica.
+- [x] Blog y SEO técnico básico.
+- [x] Publicidad propia básica.
 - [ ] Reportes, auditoría y métricas esenciales.
 - [ ] Seguridad, copias de respaldo y monitoreo.
 

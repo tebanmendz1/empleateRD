@@ -14,6 +14,7 @@ export function SiteFooter() {
           <div className="mt-3 flex flex-col gap-2">
             <Link href="/empleos">Vacantes</Link>
             <Link href="/empleos?modality=Remoto">Trabajo remoto</Link>
+            <Link href="/blog">Consejos y recursos</Link>
           </div>
         </div>
         <div className="text-sm">

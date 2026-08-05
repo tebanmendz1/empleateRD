@@ -15,12 +15,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://empleaterd.com",
+  ),
   title: {
     default: "EmpléateRD — Empleos en República Dominicana",
     template: "%s | EmpléateRD",
   },
   description:
     "Encuentra empleos y conecta con empresas confiables en República Dominicana.",
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", locale: "es_DO", siteName: "EmpléateRD" },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

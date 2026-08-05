@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { JobCard } from "@/components/job-card";
 import { categories, jobs } from "@/data/jobs";
+import { HouseAd } from "@/components/house-ad";
 export default function Home() {
   return (
     <main>
@@ -42,6 +43,9 @@ export default function Home() {
           </form>
         </div>
       </section>
+      <div className="mx-auto max-w-6xl px-5 pt-10">
+        <HouseAd />
+      </div>
       <section className="mx-auto max-w-6xl px-5 py-16">
         <div className="flex items-end justify-between">
           <div>
