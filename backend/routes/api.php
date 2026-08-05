@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\EmailVerificationController;
+use App\Http\Controllers\Api\V1\CandidateDocumentController;
+use App\Http\Controllers\Api\V1\CandidateProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -25,5 +27,14 @@ Route::prefix('v1')->group(function (): void {
             Route::post('/logout', [AuthController::class, 'logout']);
             Route::post('/verification-notification', [EmailVerificationController::class, 'resend'])->middleware('throttle:3,1');
         });
+    });
+
+    Route::middleware('auth:sanctum')->prefix('candidate')->group(function (): void {
+        Route::get('/profile', [CandidateProfileController::class, 'show']);
+        Route::put('/profile', [CandidateProfileController::class, 'update']);
+        Route::get('/documents', [CandidateDocumentController::class, 'index']);
+        Route::post('/documents', [CandidateDocumentController::class, 'store'])->middleware('throttle:10,1');
+        Route::get('/documents/{document}/download', [CandidateDocumentController::class, 'download']);
+        Route::delete('/documents/{document}', [CandidateDocumentController::class, 'destroy']);
     });
 });
