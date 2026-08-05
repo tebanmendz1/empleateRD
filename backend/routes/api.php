@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\EmailVerificationController;
 use App\Http\Controllers\Api\V1\CandidateDocumentController;
 use App\Http\Controllers\Api\V1\CandidateProfileController;
 use App\Http\Controllers\Api\V1\JobApplicationController;
+use App\Http\Controllers\Api\V1\CandidateCvController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -40,5 +41,6 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/applications', [JobApplicationController::class, 'index']);
         Route::post('/jobs/{job:slug}/applications', [JobApplicationController::class, 'store'])->middleware('throttle:10,1');
         Route::patch('/applications/{application}/withdraw', [JobApplicationController::class, 'withdraw']);
+        Route::get('/cv/export', [CandidateCvController::class, 'export'])->middleware('throttle:10,1');
     });
 });
