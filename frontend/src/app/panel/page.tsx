@@ -126,6 +126,11 @@ export default function Dashboard() {
               title="Candidatos"
               text="Gestiona estados, mensajes y entrevistas."
             />
+            <Action
+              href="/empresa/reportes"
+              title="Reportes"
+              text="Consulta vacantes, postulaciones y contrataciones."
+            />
           </div>
         )}
       </div>

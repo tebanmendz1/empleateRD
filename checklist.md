@@ -42,7 +42,7 @@
 - [x] Pagos y comprobantes.
 - [x] Blog y SEO técnico básico.
 - [x] Publicidad propia básica.
-- [ ] Reportes, auditoría y métricas esenciales.
+- [x] Reportes, auditoría y métricas esenciales.
 - [ ] Seguridad, copias de respaldo y monitoreo.
 
 ## Fuera del MVP

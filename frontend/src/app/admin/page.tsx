@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { API_URL, api } from "@/lib/api";
 import { useStoredUser } from "@/components/account-nav";
+import Link from "next/link";
 type Payment = {
   id: number;
   amount: string;
@@ -89,6 +90,12 @@ export default function Admin() {
           Administración
         </p>
         <h1 className="mt-1 text-3xl font-black">Moderación pendiente</h1>
+        <Link
+          href="/admin/reportes"
+          className="mt-4 inline-block rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white"
+        >
+          Ver métricas y auditoría
+        </Link>
         {error && (
           <p className="mt-5 rounded-xl bg-rose-50 p-3 text-rose-700">
             {error}

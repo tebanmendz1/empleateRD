@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\V1\AdminModerationController;
 use App\Http\Controllers\Api\V1\PublicJobController;
 use App\Http\Controllers\Api\V1\CompanyCandidateController;
 use App\Http\Controllers\Api\V1\CandidateProcessController;
+use App\Http\Controllers\Api\V1\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -85,6 +86,7 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/applications/{application}/messages', [CompanyCandidateController::class, 'message']);
         Route::post('/applications/{application}/interviews', [CompanyCandidateController::class, 'interview']);
         Route::get('/applications/{application}/document', [CompanyCandidateController::class, 'document']);
+        Route::get('/reports', [ReportController::class, 'company']);
     });
     Route::middleware('auth:sanctum')->prefix('admin')->group(function (): void {
         Route::get('/moderation', [AdminModerationController::class, 'queue']);
@@ -92,5 +94,6 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/payments/{payment}/proof', [AdminModerationController::class, 'proof']);
         Route::post('/payments/{payment}/review', [AdminModerationController::class, 'reviewPayment']);
         Route::post('/jobs/{job}/review', [AdminModerationController::class, 'reviewJob']);
+        Route::get('/reports', [ReportController::class, 'admin']);
     });
 });
