@@ -80,7 +80,19 @@ Después del primer despliegue, abra la consola del servicio y ejecute:
 
 ```text
 php artisan migrate --force
+php artisan db:seed --force
 ```
+
+El primer comando crea o actualiza las tablas. El segundo carga de forma idempotente las vacantes iniciales utilizadas por el portal.
+
+### Almacenamiento privado
+
+Mientras no se configure S3, agregue al servicio `api` un volumen persistente:
+
+- Nombre: `private-documents`.
+- Ruta de montaje: `/app/storage/app/private`.
+
+Sin este volumen, los CV y documentos cargados se perderán cuando EasyPanel sustituya o reinicie el contenedor. Para producción definitiva se recomienda almacenamiento S3 compatible.
 
 ## 4. Worker
 
@@ -127,6 +139,7 @@ Cuando el primer despliegue funcione:
 - El portal carga por HTTPS.
 - La API conecta con PostgreSQL y Redis.
 - El worker aparece activo y procesa una tarea de prueba.
+- Un CV de prueba continúa disponible después de reiniciar el servicio `api`.
 - El correo transaccional llega al proveedor configurado.
 - Los servicios recuperan su estado después de reiniciar el VPS.
 
