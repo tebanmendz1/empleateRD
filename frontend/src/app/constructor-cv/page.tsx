@@ -78,6 +78,7 @@ const token = () => localStorage.getItem("empleaterd_token");
 export default function CvBuilder() {
   const router = useRouter();
   const [profile, setProfile] = useState<Profile>({});
+  const [profileLoaded, setProfileLoaded] = useState(false);
   const [template, setTemplate] = useState<Template>("classic");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -94,7 +95,8 @@ export default function CvBuilder() {
       headers: { Authorization: `Bearer ${token()}` },
     })
       .then((r) => setProfile(r.data))
-      .catch(showError);
+      .catch(showError)
+      .finally(() => setProfileLoaded(true));
   }, [router]);
   function showError(err: unknown) {
     setError(
@@ -234,6 +236,12 @@ export default function CvBuilder() {
       setExporting(false);
     }
   }
+  if (!profileLoaded)
+    return (
+      <main className="grid min-h-[75vh] place-items-center bg-slate-50 text-slate-500">
+        Cargando tu información profesional…
+      </main>
+    );
   return (
     <main className="min-h-[75vh] bg-slate-50 px-5 py-10">
       <div className="mx-auto max-w-6xl">
