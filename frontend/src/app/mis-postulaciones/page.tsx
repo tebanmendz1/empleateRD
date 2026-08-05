@@ -97,6 +97,12 @@ export default function Applications() {
                   {labels[a.status] ?? a.status}
                 </span>
               </div>
+              <Link
+                href={`/mis-postulaciones/${a.id}`}
+                className="mt-5 mr-5 inline-block text-sm font-bold text-blue-700"
+              >
+                Ver mensajes y entrevistas
+              </Link>
               {!["withdrawn", "rejected", "hired"].includes(a.status) && (
                 <button
                   onClick={() => withdraw(a.id)}

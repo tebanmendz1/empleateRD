@@ -15,6 +15,8 @@ use App\Http\Controllers\Api\V1\CompanyJobController;
 use App\Http\Controllers\Api\V1\CompanyPaymentController;
 use App\Http\Controllers\Api\V1\AdminModerationController;
 use App\Http\Controllers\Api\V1\PublicJobController;
+use App\Http\Controllers\Api\V1\CompanyCandidateController;
+use App\Http\Controllers\Api\V1\CandidateProcessController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -52,6 +54,9 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/applications', [JobApplicationController::class, 'index']);
         Route::post('/jobs/{job:slug}/applications', [JobApplicationController::class, 'store'])->middleware('throttle:10,1');
         Route::patch('/applications/{application}/withdraw', [JobApplicationController::class, 'withdraw']);
+        Route::get('/applications/{application}/process', [CandidateProcessController::class, 'show']);
+        Route::post('/applications/{application}/messages', [CandidateProcessController::class, 'message']);
+        Route::post('/interviews/{interview}/respond', [CandidateProcessController::class, 'respond']);
         Route::get('/cv/export', [CandidateCvController::class, 'export'])->middleware('throttle:10,1');
         Route::get('/cv/analyze', [CandidateCvAnalysisController::class, 'show'])->middleware('throttle:20,1');
         Route::post('/cv/photo', [CandidatePhotoController::class, 'store'])->middleware('throttle:10,1');
@@ -74,6 +79,12 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/jobs/{job}/payment', [CompanyPaymentController::class, 'show']);
         Route::post('/jobs/{job}/payment', [CompanyPaymentController::class, 'store']);
         Route::post('/jobs/{job}/payment/proof', [CompanyPaymentController::class, 'upload'])->middleware('throttle:10,1');
+        Route::get('/applications', [CompanyCandidateController::class, 'index']);
+        Route::get('/applications/{application}', [CompanyCandidateController::class, 'show']);
+        Route::patch('/applications/{application}/status', [CompanyCandidateController::class, 'updateStatus']);
+        Route::post('/applications/{application}/messages', [CompanyCandidateController::class, 'message']);
+        Route::post('/applications/{application}/interviews', [CompanyCandidateController::class, 'interview']);
+        Route::get('/applications/{application}/document', [CompanyCandidateController::class, 'document']);
     });
     Route::middleware('auth:sanctum')->prefix('admin')->group(function (): void {
         Route::get('/moderation', [AdminModerationController::class, 'queue']);

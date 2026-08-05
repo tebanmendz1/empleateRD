@@ -33,7 +33,7 @@
 - [x] Equipo y permisos esenciales.
 - [x] Cuestionario de cotización dinámica.
 - [x] Creación, pago, revisión y publicación de vacantes.
-- [ ] Gestión básica de candidatos, mensajes y entrevistas.
+- [x] Gestión básica de candidatos, mensajes y entrevistas.
 
 ## MVP — operación
 

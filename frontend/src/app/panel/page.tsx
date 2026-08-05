@@ -121,6 +121,11 @@ export default function Dashboard() {
               title="Equipo y permisos"
               text="Administra representantes y roles de acceso."
             />
+            <Action
+              href="/empresa/candidatos"
+              title="Candidatos"
+              text="Gestiona estados, mensajes y entrevistas."
+            />
           </div>
         )}
       </div>
