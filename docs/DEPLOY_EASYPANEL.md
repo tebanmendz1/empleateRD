@@ -44,6 +44,7 @@ APP_ENV=production
 APP_KEY=base64:GENERAR_UNA_CLAVE_REAL
 APP_DEBUG=false
 APP_URL=https://api.empleaterd.com
+FRONTEND_URL=https://empleaterd.com
 APP_LOCALE=es
 APP_FALLBACK_LOCALE=es
 LOG_CHANNEL=stderr

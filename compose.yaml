@@ -21,6 +21,7 @@ services:
       - ./backend/.env
     environment:
       APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      FRONTEND_URL: http://localhost:3000
     depends_on:
       postgres:
         condition: service_healthy
@@ -34,6 +35,7 @@ services:
       - ./backend/.env
     environment:
       APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      FRONTEND_URL: http://localhost:3000
     depends_on:
       api:
         condition: service_started
