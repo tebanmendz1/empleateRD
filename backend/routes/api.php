@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\EmailVerificationController;
 use App\Http\Controllers\Api\V1\CandidateDocumentController;
 use App\Http\Controllers\Api\V1\CandidateProfileController;
+use App\Http\Controllers\Api\V1\JobApplicationController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -36,5 +37,8 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/documents', [CandidateDocumentController::class, 'store'])->middleware('throttle:10,1');
         Route::get('/documents/{document}/download', [CandidateDocumentController::class, 'download']);
         Route::delete('/documents/{document}', [CandidateDocumentController::class, 'destroy']);
+        Route::get('/applications', [JobApplicationController::class, 'index']);
+        Route::post('/jobs/{job:slug}/applications', [JobApplicationController::class, 'store'])->middleware('throttle:10,1');
+        Route::patch('/applications/{application}/withdraw', [JobApplicationController::class, 'withdraw']);
     });
 });
