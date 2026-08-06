@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 type Talent = {
   candidate_id: number;
@@ -18,24 +18,24 @@ export default function Talents() {
     [query, setQuery] = useState(""),
     [error, setError] = useState(""),
     [message, setMessage] = useState("");
-  function search(q = "") {
+  const show = useCallback((e: unknown) => {
+    setError(
+      e instanceof Error ? e.message : "No pudimos completar la solicitud.",
+    );
+  }, []);
+  const search = useCallback((q = "") => {
     api(`/company/talents${q ? `?q=${encodeURIComponent(q)}` : ""}`, {
       headers: auth(),
     })
       .then((r) => setItems(r.data.data))
       .catch(show);
-  }
+  }, [show]);
   useEffect(() => {
     search();
     api("/company/jobs", { headers: auth() }).then((r) =>
       setJobs(r.data.filter((j: Job) => j.status === "active")),
     );
-  }, []);
-  function show(e: unknown) {
-    setError(
-      e instanceof Error ? e.message : "No pudimos completar la solicitud.",
-    );
-  }
+  }, [search]);
   async function save(id: number) {
     try {
       await api(`/company/talents/${id}/save`, {

@@ -117,6 +117,7 @@ export default function Dashboard() {
                 title="Mis postulaciones"
                 text="Consulta el estado de tus procesos."
               />
+              <Action href="/ferias" title="Ferias de empleo" text="Participa en eventos con empresas y reclutadores." />
             </div>
           </>
         ) : (
@@ -156,6 +157,9 @@ export default function Dashboard() {
               title="Pruebas técnicas"
               text="Crea y asigna evaluaciones a candidatos."
             />
+            <Action href="/empresa/campanas" title="Reclutamiento masivo" text="Prepara campañas para talentos con consentimiento." />
+            <Action href="/ferias" title="Ferias de empleo" text="Consulta eventos y solicita participación empresarial." />
+            <Action href="/empresa/integraciones" title="Integraciones y analítica" text="Configura países, proyecciones y claves de API." />
           </div>
         )}
       </div>

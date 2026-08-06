@@ -24,6 +24,11 @@ use App\Http\Controllers\Api\V1\CandidateMatchController;
 use App\Http\Controllers\Api\V1\TalentPoolController;
 use App\Http\Controllers\Api\V1\NotificationCenterController;
 use App\Http\Controllers\Api\V1\AssessmentController;
+use App\Http\Controllers\Api\V1\CommercialApiController;
+use App\Http\Controllers\Api\V1\PredictiveAnalyticsController;
+use App\Http\Controllers\Api\V1\CountryController;
+use App\Http\Controllers\Api\V1\JobFairController;
+use App\Http\Controllers\Api\V1\RecruitmentCampaignController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -31,6 +36,11 @@ Route::prefix('v1')->group(function (): void {
     Route::get('/jobs', [PublicJobController::class, 'index']);
     Route::get('/jobs/{job:slug}', [PublicJobController::class, 'show']);
     Route::get('/cv/{token}', [CandidateCvShareController::class, 'show']);
+    Route::get('/countries', [CountryController::class, 'index']);
+    Route::get('/job-fairs', [JobFairController::class, 'index']);
+    Route::get('/job-fairs/{fair:slug}', [JobFairController::class, 'show']);
+    Route::middleware('api.client:jobs:read')->get('/commercial/jobs', [CommercialApiController::class, 'jobs']);
+    Route::middleware('api.client:applications:read')->get('/commercial/applications', [CommercialApiController::class, 'applications']);
 
     Route::prefix('auth')->group(function (): void {
         Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:6,1');
@@ -71,6 +81,7 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/talent/companies/{company}/block', [TalentPoolController::class, 'block']);
         Route::get('/assessments', [AssessmentController::class, 'candidateIndex']);
         Route::post('/assessments/{assignment}/submit', [AssessmentController::class, 'submit']);
+        Route::post('/job-fairs/{fair}/register', [JobFairController::class, 'register']);
     });
     Route::middleware('auth:sanctum')->group(function (): void {
         Route::get('/notifications', [NotificationCenterController::class, 'index']);
@@ -104,6 +115,10 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/applications/{application}/document', [CompanyCandidateController::class, 'document']);
         Route::get('/applications/{application}/match', [CandidateMatchController::class, 'company']);
         Route::get('/reports', [ReportController::class, 'company']);
+        Route::get('/analytics/predictive', [PredictiveAnalyticsController::class, 'company']);
+        Route::get('/api-clients', [CommercialApiController::class, 'clients']);
+        Route::post('/api-clients', [CommercialApiController::class, 'createClient']);
+        Route::put('/country', [CountryController::class, 'updateCompany']);
         Route::get('/talents', [TalentPoolController::class, 'search']);
         Route::post('/talents/{candidate}/save', [TalentPoolController::class, 'save']);
         Route::post('/talents/{candidate}/invite', [TalentPoolController::class, 'invite']);
@@ -112,6 +127,10 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/assessments/{assessment}/assign', [AssessmentController::class, 'assign']);
         Route::patch('/assessment-assignments/{assignment}/review', [AssessmentController::class, 'review']);
         Route::put('/applications/{application}/evaluation', [AssessmentController::class, 'evaluate']);
+        Route::post('/job-fairs/{fair}/join', [JobFairController::class, 'join']);
+        Route::get('/recruitment-campaigns', [RecruitmentCampaignController::class, 'index']);
+        Route::post('/recruitment-campaigns', [RecruitmentCampaignController::class, 'store']);
+        Route::post('/recruitment-campaigns/{campaign}/send', [RecruitmentCampaignController::class, 'send']);
     });
     Route::middleware('auth:sanctum')->prefix('admin')->group(function (): void {
         Route::get('/moderation', [AdminModerationController::class, 'queue']);
@@ -121,5 +140,8 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/jobs/{job}/review', [AdminModerationController::class, 'reviewJob']);
         Route::get('/reports', [ReportController::class, 'admin']);
         Route::get('/system-health', [SystemHealthController::class, 'details']);
+        Route::get('/job-fairs', [JobFairController::class, 'adminIndex']);
+        Route::post('/job-fairs', [JobFairController::class, 'store']);
+        Route::patch('/job-fairs/{fair}/companies/{company}', [JobFairController::class, 'reviewCompany']);
     });
 });

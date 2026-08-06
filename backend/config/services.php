@@ -2,6 +2,8 @@
 
 return [
 
+    'video_meetings' => ['base_url' => env('VIDEO_MEETING_BASE_URL', 'https://meet.jit.si')],
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services

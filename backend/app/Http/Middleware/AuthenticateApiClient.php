@@ -1,0 +1,3 @@
+<?php
+namespace App\Http\Middleware;use App\Models\ApiClient;use Closure;use Illuminate\Http\Request;use Symfony\Component\HttpFoundation\Response;
+class AuthenticateApiClient{public function handle(Request $request,Closure $next,?string $scope=null):Response{$plain=(string)$request->bearerToken();$client=$plain?ApiClient::where('key_hash',hash('sha256',$plain))->where('active',true)->first():null;abort_unless($client&&(!$client->expires_at||$client->expires_at->isFuture()),401,'Clave de API inválida.');if($scope)abort_unless(in_array($scope,$client->scopes??[]),403,'La clave no posee este permiso.');$client->update(['last_used_at'=>now()]);$request->attributes->set('api_client',$client);return$next($request);}}

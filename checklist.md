@@ -50,8 +50,8 @@
 - [x] Constructor avanzado de CV y ranking asistido.
 - [x] Base de talentos, WhatsApp, push y calendarios externos.
 - [x] Pruebas, evaluaciones y aplicación móvil.
-- [ ] API comercial, multi-país y analítica predictiva.
-- [ ] Ferias de empleo, reclutamiento masivo y videollamadas.
+- [x] API comercial, multi-país y analítica predictiva.
+- [x] Ferias de empleo, reclutamiento masivo y videollamadas.
 
 ## Decisiones pendientes
 
