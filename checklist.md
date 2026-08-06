@@ -49,7 +49,7 @@
 
 - [x] Constructor avanzado de CV y ranking asistido.
 - [x] Base de talentos, WhatsApp, push y calendarios externos.
-- [ ] Pruebas, evaluaciones y aplicación móvil.
+- [x] Pruebas, evaluaciones y aplicación móvil.
 - [ ] API comercial, multi-país y analítica predictiva.
 - [ ] Ferias de empleo, reclutamiento masivo y videollamadas.
 

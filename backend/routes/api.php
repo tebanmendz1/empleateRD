@@ -23,6 +23,7 @@ use App\Http\Controllers\Api\V1\CandidateCvShareController;
 use App\Http\Controllers\Api\V1\CandidateMatchController;
 use App\Http\Controllers\Api\V1\TalentPoolController;
 use App\Http\Controllers\Api\V1\NotificationCenterController;
+use App\Http\Controllers\Api\V1\AssessmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -68,6 +69,8 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/talent/invitations', [TalentPoolController::class, 'invitations']);
         Route::post('/talent/invitations/{invitation}/respond', [TalentPoolController::class, 'respond']);
         Route::post('/talent/companies/{company}/block', [TalentPoolController::class, 'block']);
+        Route::get('/assessments', [AssessmentController::class, 'candidateIndex']);
+        Route::post('/assessments/{assignment}/submit', [AssessmentController::class, 'submit']);
     });
     Route::middleware('auth:sanctum')->group(function (): void {
         Route::get('/notifications', [NotificationCenterController::class, 'index']);
@@ -104,6 +107,11 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/talents', [TalentPoolController::class, 'search']);
         Route::post('/talents/{candidate}/save', [TalentPoolController::class, 'save']);
         Route::post('/talents/{candidate}/invite', [TalentPoolController::class, 'invite']);
+        Route::get('/assessments', [AssessmentController::class, 'companyIndex']);
+        Route::post('/assessments', [AssessmentController::class, 'create']);
+        Route::post('/assessments/{assessment}/assign', [AssessmentController::class, 'assign']);
+        Route::patch('/assessment-assignments/{assignment}/review', [AssessmentController::class, 'review']);
+        Route::put('/applications/{application}/evaluation', [AssessmentController::class, 'evaluate']);
     });
     Route::middleware('auth:sanctum')->prefix('admin')->group(function (): void {
         Route::get('/moderation', [AdminModerationController::class, 'queue']);

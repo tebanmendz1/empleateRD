@@ -108,6 +108,11 @@ export default function Dashboard() {
                 text="Gestiona invitaciones de empresas verificadas."
               />
               <Action
+                href="/pruebas"
+                title="Pruebas técnicas"
+                text="Completa evaluaciones asignadas por empresas."
+              />
+              <Action
                 href="/mis-postulaciones"
                 title="Mis postulaciones"
                 text="Consulta el estado de tus procesos."
@@ -145,6 +150,11 @@ export default function Dashboard() {
               href="/empresa/talentos"
               title="Base de talentos"
               text="Busca e invita perfiles con consentimiento."
+            />
+            <Action
+              href="/empresa/pruebas"
+              title="Pruebas técnicas"
+              text="Crea y asigna evaluaciones a candidatos."
             />
           </div>
         )}

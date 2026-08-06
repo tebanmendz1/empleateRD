@@ -1,0 +1,3 @@
+<?php
+namespace App\Models;use Illuminate\Database\Eloquent\Model;use Illuminate\Database\Eloquent\Relations\BelongsTo;
+class AssessmentAssignment extends Model{protected $fillable=['assessment_id','job_application_id','assigned_by','status','due_at','started_at','submitted_at','answers','score','feedback'];protected function casts():array{return['due_at'=>'datetime','started_at'=>'datetime','submitted_at'=>'datetime','answers'=>'array','score'=>'decimal:2'];}public function assessment():BelongsTo{return $this->belongsTo(Assessment::class);}public function application():BelongsTo{return $this->belongsTo(JobApplication::class,'job_application_id');}}
