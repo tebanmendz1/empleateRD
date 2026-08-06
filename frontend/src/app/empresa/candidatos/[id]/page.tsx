@@ -29,6 +29,13 @@ type Application = {
   messages: Message[];
   interviews: Interview[];
 };
+type Match = {
+  score: number;
+  level: string;
+  strengths: string[];
+  gaps: string[];
+  disclaimer: string;
+};
 const token = () => localStorage.getItem("empleaterd_token");
 const auth = () => ({ Authorization: `Bearer ${token()}` });
 const statuses = [
@@ -43,11 +50,18 @@ const statuses = [
 export default function CandidateDetail() {
   const { id } = useParams<{ id: string }>();
   const [item, setItem] = useState<Application | null>(null),
+    [match, setMatch] = useState<Match | null>(null),
     [error, setError] = useState(""),
     [notice, setNotice] = useState("");
   function load() {
-    api(`/company/applications/${id}`, { headers: auth() })
-      .then((r) => setItem(r.data))
+    Promise.all([
+      api(`/company/applications/${id}`, { headers: auth() }),
+      api(`/company/applications/${id}/match`, { headers: auth() }),
+    ])
+      .then(([application, matching]) => {
+        setItem(application.data);
+        setMatch(matching.data);
+      })
       .catch(show);
   }
   useEffect(load, [id]);
@@ -145,6 +159,42 @@ export default function CandidateDetail() {
             {item.profile_snapshot.email} ·{" "}
             {item.profile_snapshot.phone || "Sin teléfono"}
           </p>
+          {match && (
+            <section className="mt-6 rounded-2xl border bg-white p-6">
+              <p className="text-sm font-bold uppercase text-blue-700">
+                Compatibilidad asistida
+              </p>
+              <div className="mt-2 flex items-end gap-3">
+                <p className="text-4xl font-black">{match.score}%</p>
+                <p className="pb-1 font-bold capitalize text-slate-500">
+                  {match.level}
+                </p>
+              </div>
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                <div>
+                  {match.strengths.map((x) => (
+                    <p
+                      key={x}
+                      className="mb-2 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-900"
+                    >
+                      ✓ {x}
+                    </p>
+                  ))}
+                </div>
+                <div>
+                  {match.gaps.map((x) => (
+                    <p
+                      key={x}
+                      className="mb-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-900"
+                    >
+                      → {x}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <p className="mt-3 text-xs text-slate-500">{match.disclaimer}</p>
+            </section>
+          )}
           {error && (
             <p className="mt-5 rounded-xl bg-rose-50 p-3 text-rose-700">
               {error}

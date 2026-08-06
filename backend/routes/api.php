@@ -19,12 +19,15 @@ use App\Http\Controllers\Api\V1\CompanyCandidateController;
 use App\Http\Controllers\Api\V1\CandidateProcessController;
 use App\Http\Controllers\Api\V1\ReportController;
 use App\Http\Controllers\Api\V1\SystemHealthController;
+use App\Http\Controllers\Api\V1\CandidateCvShareController;
+use App\Http\Controllers\Api\V1\CandidateMatchController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
     Route::get('/health', [SystemHealthController::class, 'readiness']);
     Route::get('/jobs', [PublicJobController::class, 'index']);
     Route::get('/jobs/{job:slug}', [PublicJobController::class, 'show']);
+    Route::get('/cv/{token}', [CandidateCvShareController::class, 'show']);
 
     Route::prefix('auth')->group(function (): void {
         Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:6,1');
@@ -49,6 +52,7 @@ Route::prefix('v1')->group(function (): void {
         Route::delete('/documents/{document}', [CandidateDocumentController::class, 'destroy']);
         Route::get('/applications', [JobApplicationController::class, 'index']);
         Route::post('/jobs/{job:slug}/applications', [JobApplicationController::class, 'store'])->middleware('throttle:10,1');
+        Route::get('/jobs/{job:slug}/match', [CandidateMatchController::class, 'candidate']);
         Route::patch('/applications/{application}/withdraw', [JobApplicationController::class, 'withdraw']);
         Route::get('/applications/{application}/process', [CandidateProcessController::class, 'show']);
         Route::post('/applications/{application}/messages', [CandidateProcessController::class, 'message']);
@@ -57,6 +61,7 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/cv/analyze', [CandidateCvAnalysisController::class, 'show'])->middleware('throttle:20,1');
         Route::post('/cv/photo', [CandidatePhotoController::class, 'store'])->middleware('throttle:10,1');
         Route::delete('/cv/photo', [CandidatePhotoController::class, 'destroy']);
+        Route::post('/cv/share', [CandidateCvShareController::class, 'update']);
     });
     Route::middleware('auth:sanctum')->prefix('company')->group(function (): void {
         Route::get('/profile', [CompanyProfileController::class, 'show']);
@@ -81,6 +86,7 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/applications/{application}/messages', [CompanyCandidateController::class, 'message']);
         Route::post('/applications/{application}/interviews', [CompanyCandidateController::class, 'interview']);
         Route::get('/applications/{application}/document', [CompanyCandidateController::class, 'document']);
+        Route::get('/applications/{application}/match', [CandidateMatchController::class, 'company']);
         Route::get('/reports', [ReportController::class, 'company']);
     });
     Route::middleware('auth:sanctum')->prefix('admin')->group(function (): void {

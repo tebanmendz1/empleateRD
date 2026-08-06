@@ -98,6 +98,11 @@ export default function Dashboard() {
                 text="Elige una plantilla y descarga tu currículum."
               />
               <Action
+                href="/mi-cv-publico"
+                title="Compartir mi CV"
+                text="Controla un enlace público para tu currículum."
+              />
+              <Action
                 href="/mis-postulaciones"
                 title="Mis postulaciones"
                 text="Consulta el estado de tus procesos."
