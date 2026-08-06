@@ -1,0 +1,3 @@
+<?php
+namespace Tests\Feature;use App\Models\User;use Database\Seeders\AdminUserSeeder;use Illuminate\Foundation\Testing\RefreshDatabase;use Illuminate\Support\Facades\Hash;use Tests\TestCase;
+class AdminUserSeederTest extends TestCase{use RefreshDatabase;public function test_configured_administrator_is_created_and_verified():void{config()->set('platform.admin',['name'=>'Administrador','email'=>'admin@empleaterd.test','password'=>'Clave-Segura-2026']);$this->seed(AdminUserSeeder::class);$admin=User::where('email','admin@empleaterd.test')->firstOrFail();$this->assertTrue($admin->is_admin);$this->assertNotNull($admin->email_verified_at);$this->assertTrue(Hash::check('Clave-Segura-2026',$admin->password));}}

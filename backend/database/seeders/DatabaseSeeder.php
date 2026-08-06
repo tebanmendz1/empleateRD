@@ -2,7 +2,7 @@
 namespace Database\Seeders;
 use App\Models\Company;use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder{
- public function run():void{$records=[
+ public function run():void{$this->call(AdminUserSeeder::class);$records=[
   ['Caribe Digital','caribe-digital','desarrollador-frontend-react','Desarrollador Frontend React','Construye productos digitales modernos para clientes del Caribe.','Distrito Nacional','Híbrido','Tiempo completo','RD$85,000 – RD$115,000'],
   ['Conexión Global','conexion-global','representante-servicio-al-cliente','Representante de Servicio al Cliente','Brinda soporte cercano a clientes locales e internacionales.','Santo Domingo','Presencial','Tiempo completo','RD$38,000 – RD$48,000'],
   ['Grupo Horizonte','grupo-horizonte','analista-contabilidad','Analista de Contabilidad','Apoya el cierre contable y los controles financieros.','Santiago','Presencial','Tiempo completo','RD$55,000 – RD$70,000'],
