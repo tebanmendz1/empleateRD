@@ -31,11 +31,20 @@ type Job = {
   quality_score: number;
   company: { name: string; verification_status: string };
 };
+type PendingUser = {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  account_type: "candidate" | "company";
+  created_at: string;
+};
 const auth = () => ({
   Authorization: `Bearer ${localStorage.getItem("empleaterd_token")}`,
 });
 export default function Admin() {
   const user = useStoredUser(),
+    [users, setUsers] = useState<PendingUser[]>([]),
     [companies, setCompanies] = useState<Company[]>([]),
     [payments, setPayments] = useState<Payment[]>([]),
     [jobs, setJobs] = useState<Job[]>([]),
@@ -43,6 +52,7 @@ export default function Admin() {
   function load() {
     api("/admin/moderation", { headers: auth() })
       .then((r) => {
+        setUsers(r.data.users);
         setCompanies(r.data.companies);
         setPayments(r.data.payments);
         setJobs(r.data.jobs);
@@ -72,6 +82,20 @@ export default function Admin() {
     } catch (e) {
       setError(
         e instanceof Error ? e.message : "No pudimos registrar la revisión.",
+      );
+    }
+  }
+  async function verifyUser(id: number) {
+    if (!window.confirm("¿Verificar manualmente esta cuenta?")) return;
+    try {
+      await api(`/admin/users/${id}/verify`, {
+        method: "POST",
+        headers: auth(),
+      });
+      load();
+    } catch (e) {
+      setError(
+        e instanceof Error ? e.message : "No pudimos verificar la cuenta.",
       );
     }
   }
@@ -111,7 +135,34 @@ export default function Admin() {
           </p>
         )}
         <h2 className="mt-8 text-xl font-black">
-          Empresas ({companies.length})
+          Cuentas sin verificar ({users.length})
+        </h2>
+        <div className="mt-3 space-y-3">
+          {users.map((pendingUser) => (
+            <article key={pendingUser.id} className="rounded-2xl border bg-white p-5">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <b>{pendingUser.name}</b>
+                  <p className="mt-1 text-sm text-slate-500">
+                    {pendingUser.email} · {pendingUser.phone || "Sin teléfono"}
+                  </p>
+                  <p className="mt-1 text-xs font-bold uppercase text-blue-700">
+                    {pendingUser.account_type === "company" ? "Empresa o representante" : "Candidato"}
+                  </p>
+                </div>
+                <button
+                  onClick={() => verifyUser(pendingUser.id)}
+                  className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold"
+                >
+                  Verificar cuenta
+                </button>
+              </div>
+            </article>
+          ))}
+          {!users.length && <p className="rounded-2xl border bg-white p-5 text-sm text-slate-500">No hay cuentas pendientes.</p>}
+        </div>
+        <h2 className="mt-8 text-xl font-black">
+          Empresas sin verificar ({companies.length})
         </h2>
         <div className="mt-3 space-y-3">
           {companies.map((company) => (

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\PaymentOrder;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,10 +19,20 @@ class AdminModerationController extends Controller
     {
         $this->admin($request);
         return response()->json(['data' => [
-            'companies' => Company::with('members:id,name,email')->where('verification_status', 'pending')->oldest('verification_submitted_at')->get(),
+            'users' => User::whereNull('email_verified_at')->where('is_admin', false)->oldest()->get(['id', 'name', 'email', 'phone', 'account_type', 'created_at']),
+            'companies' => Company::with('members:id,name,email')->where('verification_status', '!=', 'verified')->oldest('verification_submitted_at')->get(),
             'payments' => PaymentOrder::with('company:id,name', 'job:id,title,status')->where('status', 'proof_submitted')->oldest('proof_submitted_at')->get(),
             'jobs' => Job::with('company:id,name,verification_status')->where('status', 'pending_review')->oldest('submitted_at')->get(),
         ]]);
+    }
+
+    public function verifyUser(Request $request, User $user): JsonResponse
+    {
+        $this->admin($request);
+        abort_if($user->is_admin, 422, 'La cuenta administrativa no requiere esta acción.');
+        abort_if($user->hasVerifiedEmail(), 422, 'Esta cuenta ya está verificada.');
+        $user->forceFill(['email_verified_at' => now()])->save();
+        return response()->json(['data' => $user->fresh(), 'message' => 'Cuenta verificada manualmente.']);
     }
 
     public function proof(Request $request, PaymentOrder $payment)
@@ -35,7 +46,7 @@ class AdminModerationController extends Controller
     {
         $this->admin($request);
         $data = $request->validate(['decision' => ['required', Rule::in(['approve', 'reject'])], 'note' => ['nullable', 'string', 'max:2000']]);
-        abort_unless($company->verification_status === 'pending', 422, 'Esta solicitud empresarial ya fue revisada.');
+        abort_if($company->verification_status === 'verified', 422, 'Esta empresa ya está verificada.');
         $approved = $data['decision'] === 'approve';
         $company->update(['verification_status' => $approved ? 'verified' : 'rejected', 'verification_review_note' => $data['note'] ?? null, 'verification_reviewed_by' => $request->user()->id, 'verification_reviewed_at' => now()]);
         return response()->json(['data' => $company->fresh(), 'message' => $approved ? 'Empresa verificada.' : 'Verificación empresarial rechazada.']);

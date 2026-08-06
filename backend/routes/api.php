@@ -134,6 +134,7 @@ Route::prefix('v1')->group(function (): void {
     });
     Route::middleware('auth:sanctum')->prefix('admin')->group(function (): void {
         Route::get('/moderation', [AdminModerationController::class, 'queue']);
+        Route::post('/users/{user}/verify', [AdminModerationController::class, 'verifyUser']);
         Route::post('/companies/{company}/review', [AdminModerationController::class, 'reviewCompany']);
         Route::get('/payments/{payment}/proof', [AdminModerationController::class, 'proof']);
         Route::post('/payments/{payment}/review', [AdminModerationController::class, 'reviewPayment']);
