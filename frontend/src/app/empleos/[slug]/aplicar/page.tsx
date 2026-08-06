@@ -3,15 +3,24 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import { getJob } from "@/data/jobs";
+import { getJob, type Job } from "@/data/jobs";
+import { normalizeJob } from "@/lib/public-jobs";
 type Doc = { id: number; original_name: string; kind: string };
 export default function Apply() {
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
-  const job = getJob(slug);
+  const [job, setJob] = useState<Job | null>(() => getJob(slug) ?? null);
+  const [jobLoading, setJobLoading] = useState(!getJob(slug));
   const [docs, setDocs] = useState<Doc[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (job) return;
+    api(`/jobs/${slug}`)
+      .then((response) => setJob(normalizeJob(response.data)))
+      .catch(() => setError("Vacante no encontrada o ya no está disponible."))
+      .finally(() => setJobLoading(false));
+  }, [job, slug]);
   useEffect(() => {
     const token = localStorage.getItem("empleaterd_token");
     if (!token) {
@@ -58,6 +67,8 @@ export default function Apply() {
       setLoading(false);
     }
   }
+  if (jobLoading)
+    return <main className="p-10 text-center">Cargando vacante…</main>;
   if (!job)
     return <main className="p-10 text-center">Vacante no encontrada.</main>;
   return (

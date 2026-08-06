@@ -1,6 +1,6 @@
 import type { Job } from "@/data/jobs";
 
-type ApiJob = {
+export type ApiJob = {
   slug: string;
   title: string;
   summary: string;
