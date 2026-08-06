@@ -46,6 +46,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Company::class, 'company_members')->withPivot(['role', 'status'])->withTimestamps();
     }
 
+    public function blockedCompanies(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class, 'blocked_companies', 'candidate_user_id', 'company_id')->withTimestamps();
+    }
+
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new VerifyEmailNotification());

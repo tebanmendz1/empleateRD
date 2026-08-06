@@ -103,6 +103,11 @@ export default function Dashboard() {
                 text="Controla un enlace público para tu currículum."
               />
               <Action
+                href="/talento"
+                title="Visibilidad y oportunidades"
+                text="Gestiona invitaciones de empresas verificadas."
+              />
+              <Action
                 href="/mis-postulaciones"
                 title="Mis postulaciones"
                 text="Consulta el estado de tus procesos."
@@ -135,6 +140,11 @@ export default function Dashboard() {
               href="/empresa/reportes"
               title="Reportes"
               text="Consulta vacantes, postulaciones y contrataciones."
+            />
+            <Action
+              href="/empresa/talentos"
+              title="Base de talentos"
+              text="Busca e invita perfiles con consentimiento."
             />
           </div>
         )}

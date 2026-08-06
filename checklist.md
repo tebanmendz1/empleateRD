@@ -48,7 +48,7 @@
 ## Fuera del MVP
 
 - [x] Constructor avanzado de CV y ranking asistido.
-- [ ] Base de talentos, WhatsApp, push y calendarios externos.
+- [x] Base de talentos, WhatsApp, push y calendarios externos.
 - [ ] Pruebas, evaluaciones y aplicación móvil.
 - [ ] API comercial, multi-país y analítica predictiva.
 - [ ] Ferias de empleo, reclutamiento masivo y videollamadas.

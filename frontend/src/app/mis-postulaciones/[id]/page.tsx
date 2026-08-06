@@ -1,7 +1,7 @@
 "use client";
 import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { api } from "@/lib/api";
+import { API_URL, api } from "@/lib/api";
 type Message = {
   id: number;
   body: string;
@@ -68,6 +68,19 @@ export default function ProcessPage() {
       setError(e instanceof Error ? e.message : "No pudimos responder.");
     }
   }
+  async function calendar(interview: number) {
+    const response = await fetch(
+      `${API_URL}/interviews/${interview}/calendar`,
+      { headers: auth() },
+    );
+    if (!response.ok) return setError("No pudimos exportar la entrevista.");
+    const url = URL.createObjectURL(await response.blob()),
+      link = document.createElement("a");
+    link.href = url;
+    link.download = "entrevista-empleaterd.ics";
+    link.click();
+    URL.revokeObjectURL(url);
+  }
   if (!item)
     return (
       <main className="grid min-h-[70vh] place-items-center bg-slate-50">
@@ -105,6 +118,12 @@ export default function ProcessPage() {
                   <p className="mt-2 text-sm text-slate-600">{i.notes}</p>
                 )}
                 <p className="mt-2 text-xs font-bold uppercase">{i.status}</p>
+                <button
+                  onClick={() => calendar(i.id)}
+                  className="mt-3 text-sm font-bold text-blue-700"
+                >
+                  Añadir al calendario
+                </button>
                 {i.status === "scheduled" && (
                   <div className="mt-3 flex gap-2">
                     <button

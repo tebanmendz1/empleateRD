@@ -19,6 +19,7 @@ export function SiteHeader() {
           <Link href="/mi-perfil">Mi perfil</Link>
           <Link href="/constructor-cv">Crear CV</Link>
           <Link href="/mis-postulaciones">Postulaciones</Link>
+          <Link href="/notificaciones">Notificaciones</Link>
         </nav>
         <div className="flex items-center gap-3 text-sm font-bold">
           <AccountNav />

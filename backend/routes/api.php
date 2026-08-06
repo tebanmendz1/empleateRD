@@ -21,6 +21,8 @@ use App\Http\Controllers\Api\V1\ReportController;
 use App\Http\Controllers\Api\V1\SystemHealthController;
 use App\Http\Controllers\Api\V1\CandidateCvShareController;
 use App\Http\Controllers\Api\V1\CandidateMatchController;
+use App\Http\Controllers\Api\V1\TalentPoolController;
+use App\Http\Controllers\Api\V1\NotificationCenterController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -62,6 +64,17 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/cv/photo', [CandidatePhotoController::class, 'store'])->middleware('throttle:10,1');
         Route::delete('/cv/photo', [CandidatePhotoController::class, 'destroy']);
         Route::post('/cv/share', [CandidateCvShareController::class, 'update']);
+        Route::put('/talent/preferences', [TalentPoolController::class, 'preferences']);
+        Route::get('/talent/invitations', [TalentPoolController::class, 'invitations']);
+        Route::post('/talent/invitations/{invitation}/respond', [TalentPoolController::class, 'respond']);
+        Route::post('/talent/companies/{company}/block', [TalentPoolController::class, 'block']);
+    });
+    Route::middleware('auth:sanctum')->group(function (): void {
+        Route::get('/notifications', [NotificationCenterController::class, 'index']);
+        Route::put('/notifications/preferences', [NotificationCenterController::class, 'preferences']);
+        Route::post('/notifications/push-subscriptions', [NotificationCenterController::class, 'subscribe']);
+        Route::patch('/notifications/{notification}/read', [NotificationCenterController::class, 'read']);
+        Route::get('/interviews/{interview}/calendar', [NotificationCenterController::class, 'calendar']);
     });
     Route::middleware('auth:sanctum')->prefix('company')->group(function (): void {
         Route::get('/profile', [CompanyProfileController::class, 'show']);
@@ -88,6 +101,9 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/applications/{application}/document', [CompanyCandidateController::class, 'document']);
         Route::get('/applications/{application}/match', [CandidateMatchController::class, 'company']);
         Route::get('/reports', [ReportController::class, 'company']);
+        Route::get('/talents', [TalentPoolController::class, 'search']);
+        Route::post('/talents/{candidate}/save', [TalentPoolController::class, 'save']);
+        Route::post('/talents/{candidate}/invite', [TalentPoolController::class, 'invite']);
     });
     Route::middleware('auth:sanctum')->prefix('admin')->group(function (): void {
         Route::get('/moderation', [AdminModerationController::class, 'queue']);
