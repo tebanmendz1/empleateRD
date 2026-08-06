@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getJob, jobs } from "@/data/jobs";
 import { apiJob } from "@/lib/public-jobs";
+import { JobEngagement } from "@/components/job-engagement";
 export function generateStaticParams() {
   return jobs.map((j) => ({ slug: j.slug }));
 }
@@ -25,6 +26,7 @@ export default async function JobDetail({
   if (!j) notFound();
   return (
     <main className="bg-slate-50">
+      <JobEngagement slug={j.slug} event="view" />
       <div className="mx-auto max-w-6xl px-5 py-10">
         <Link href="/empleos" className="text-sm font-bold text-blue-700">
           ← Volver a empleos

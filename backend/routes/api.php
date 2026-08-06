@@ -29,6 +29,8 @@ use App\Http\Controllers\Api\V1\PredictiveAnalyticsController;
 use App\Http\Controllers\Api\V1\CountryController;
 use App\Http\Controllers\Api\V1\JobFairController;
 use App\Http\Controllers\Api\V1\RecruitmentCampaignController;
+use App\Http\Controllers\Api\V1\SuggestionController;
+use App\Http\Controllers\Api\V1\JobEngagementController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -39,6 +41,8 @@ Route::prefix('v1')->group(function (): void {
     Route::get('/countries', [CountryController::class, 'index']);
     Route::get('/job-fairs', [JobFairController::class, 'index']);
     Route::get('/job-fairs/{fair:slug}', [JobFairController::class, 'show']);
+    Route::post('/suggestions', [SuggestionController::class, 'store'])->middleware('throttle:5,1');
+    Route::post('/jobs/{job:slug}/engagement', [JobEngagementController::class, 'store'])->middleware('throttle:30,1');
     Route::middleware('api.client:jobs:read')->get('/commercial/jobs', [CommercialApiController::class, 'jobs']);
     Route::middleware('api.client:applications:read')->get('/commercial/applications', [CommercialApiController::class, 'applications']);
 
@@ -144,5 +148,7 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/job-fairs', [JobFairController::class, 'adminIndex']);
         Route::post('/job-fairs', [JobFairController::class, 'store']);
         Route::patch('/job-fairs/{fair}/companies/{company}', [JobFairController::class, 'reviewCompany']);
+        Route::get('/suggestions', [SuggestionController::class, 'index']);
+        Route::patch('/suggestions/{suggestion}', [SuggestionController::class, 'update']);
     });
 });

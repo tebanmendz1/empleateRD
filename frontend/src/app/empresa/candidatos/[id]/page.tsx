@@ -23,8 +23,9 @@ type Application = {
     email: string;
     phone?: string;
     profile?: Record<string, unknown>;
+    public_profile_url?: string | null;
   };
-  document?: { name: string };
+  document?: { original_name: string };
   job: { title: string };
   messages: Message[];
   interviews: Interview[];
@@ -134,7 +135,7 @@ export default function CandidateDetail() {
       url = URL.createObjectURL(blob),
       a = window.document.createElement("a");
     a.href = url;
-    a.download = item?.document?.name ?? "curriculum";
+    a.download = item?.document?.original_name ?? "curriculum-empleaterd.pdf";
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -218,14 +219,10 @@ export default function CandidateDetail() {
                   </option>
                 ))}
               </select>
-              {item.document && (
-                <button
-                  onClick={document}
-                  className="rounded-xl bg-blue-700 px-4 py-3 font-bold text-white"
-                >
-                  Descargar CV
-                </button>
-              )}
+              <button onClick={document} className="rounded-xl bg-blue-700 px-4 py-3 font-bold text-white">
+                {item.document ? "Descargar CV adjunto" : "Descargar CV de EmpleateRD"}
+              </button>
+              {item.profile_snapshot.public_profile_url&&<a href={item.profile_snapshot.public_profile_url} target="_blank" rel="noreferrer" className="rounded-xl border px-4 py-3 font-bold text-blue-700">Ver perfil público</a>}
             </div>
             {item.cover_letter && (
               <>
@@ -243,6 +240,20 @@ export default function CandidateDetail() {
                   <p key={k} className="rounded-lg bg-slate-50 p-3">
                     <b>{k.replaceAll("_", " ")}:</b> {String(v)}
                   </p>
+                ))}
+            </div>
+            <div className="mt-3 space-y-3 text-sm">
+              {Object.entries(profile)
+                .filter(([, v]) => Array.isArray(v) && v.length > 0)
+                .map(([key, value]) => (
+                  <div key={key} className="rounded-xl bg-slate-50 p-4">
+                    <b className="capitalize">{key.replaceAll("_", " ")}</b>
+                    <ul className="mt-2 list-disc space-y-1 pl-5 text-slate-600">
+                      {(value as unknown[]).map((entry, index) => (
+                        <li key={index}>{typeof entry === "object" ? Object.values(entry as Record<string, unknown>).filter(Boolean).join(" · ") : String(entry)}</li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
             </div>
           </div>

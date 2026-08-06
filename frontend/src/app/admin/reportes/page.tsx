@@ -8,6 +8,7 @@ type Log = {
   created_at: string;
   user?: { name: string };
 };
+type Suggestion={id:number;name?:string;email:string;category:string;message:string;status:string;created_at:string};
 type Data = { summary: Record<string, number>; recent_activity: Log[] };
 const labels: Record<string, string> = {
   users: "Usuarios",
@@ -16,18 +17,22 @@ const labels: Record<string, string> = {
   verified_companies: "Empresas verificadas",
   active_jobs: "Vacantes activas",
   applications: "Postulaciones",
+  job_views: "Vistas de vacantes",
+  apply_starts: "Inicios de aplicación",
+  view_to_application_rate: "Conversión (%)",
   approved_revenue: "Ingresos aprobados",
 };
 export default function AdminReports() {
   const [data, setData] = useState<Data | null>(null),
+    [suggestions,setSuggestions]=useState<Suggestion[]>([]),
     [error, setError] = useState("");
   useEffect(() => {
-    api("/admin/reports", {
+    Promise.all([api("/admin/reports", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("empleaterd_token")}`,
       },
-    })
-      .then((r) => setData(r.data))
+    }),api("/admin/suggestions",{headers:{Authorization:`Bearer ${localStorage.getItem("empleaterd_token")}`}})])
+      .then(([r,s]) => {setData(r.data);setSuggestions(s.data.data);})
       .catch((e) =>
         setError(
           e instanceof Error ? e.message : "No pudimos cargar las métricas.",
@@ -62,6 +67,10 @@ export default function AdminReports() {
                 </div>
               ))}
             </div>
+            <section className="mt-7 rounded-2xl border bg-white p-6">
+              <h2 className="text-xl font-black">Sugerencias recientes</h2>
+              <div className="mt-4 space-y-3">{suggestions.map(s=><article key={s.id} className="rounded-xl bg-slate-50 p-4"><div className="flex justify-between gap-3"><b>{s.name||s.email}</b><span className="text-xs font-bold uppercase text-blue-700">{s.category} · {s.status}</span></div><p className="mt-2 text-sm text-slate-600">{s.message}</p></article>)}{!suggestions.length&&<p className="text-sm text-slate-500">No hay sugerencias recibidas.</p>}</div>
+            </section>
             <section className="mt-7 rounded-2xl border bg-white p-6">
               <h2 className="text-xl font-black">Actividad reciente</h2>
               <div className="mt-4 overflow-x-auto">

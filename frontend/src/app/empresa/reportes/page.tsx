@@ -8,12 +8,18 @@ type Data = {
     title: string;
     status: string;
     applications_count: number;
+    views_count: number;
+    apply_starts_count: number;
+    conversion_rate: number;
   }[];
 };
 const labels: Record<string, string> = {
   jobs: "Vacantes",
   active_jobs: "Vacantes activas",
   applications: "Postulaciones",
+  job_views: "Vistas",
+  apply_starts: "Iniciaron aplicación",
+  conversion_rate: "Conversión (%)",
   interviews: "Entrevistas",
   hired: "Contrataciones",
 };
@@ -68,7 +74,10 @@ export default function CompanyReports() {
                         {j.status}
                       </p>
                     </div>
-                    <b>{j.applications_count} postulaciones</b>
+                    <div className="text-right text-sm">
+                      <b>{j.views_count} vistas · {j.applications_count} aplicaron</b>
+                      <p className="text-slate-500">{j.apply_starts_count} iniciaron · {j.conversion_rate}% conversión</p>
+                    </div>
                   </div>
                 ))}
                 {!data.jobs.length && (

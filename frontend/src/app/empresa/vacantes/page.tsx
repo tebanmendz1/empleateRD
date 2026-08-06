@@ -9,6 +9,10 @@ type Job = {
   quality_score: number;
   created_at: string;
   payment?: { status: string } | null;
+  views_count?: number;
+  apply_starts_count?: number;
+  applications_count?: number;
+  conversion_rate?: number;
 };
 const labels: Record<string, string> = {
   draft: "Borrador",
@@ -22,12 +26,18 @@ export default function Jobs() {
   const [jobs, setJobs] = useState<Job[] | null>(null),
     [error, setError] = useState("");
   useEffect(() => {
-    api("/company/jobs", {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("empleaterd_token")}`,
+    };
+    Promise.all([api("/company/jobs", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("empleaterd_token")}`,
       },
-    })
-      .then((r) => setJobs(r.data))
+    }), api("/company/reports", { headers })])
+      .then(([r, reports]) => {
+        const metrics = new Map<number, Job>(reports.data.jobs.map((j: Job) => [j.id, j]));
+        setJobs(r.data.map((j: Job) => ({ ...j, ...metrics.get(j.id) })));
+      })
       .catch((e) =>
         setError(
           e instanceof Error ? e.message : "No pudimos cargar las vacantes.",
@@ -75,6 +85,12 @@ export default function Jobs() {
                     Calidad {job.quality_score}/100 ·{" "}
                     {new Date(job.created_at).toLocaleDateString("es-DO")}
                   </p>
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs font-bold">
+                    <span className="rounded-lg bg-blue-50 px-3 py-2 text-blue-800">Visto: {job.views_count ?? 0}</span>
+                    <span className="rounded-lg bg-amber-50 px-3 py-2 text-amber-800">Iniciaron: {job.apply_starts_count ?? 0}</span>
+                    <span className="rounded-lg bg-emerald-50 px-3 py-2 text-emerald-800">Aplicaron: {job.applications_count ?? 0}</span>
+                    <span className="rounded-lg bg-slate-100 px-3 py-2">Conversión: {job.conversion_rate ?? 0}%</span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3">
                   {job.status === "pending_payment" && (

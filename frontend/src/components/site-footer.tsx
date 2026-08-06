@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { SuggestionForm } from "./suggestion-form";
 export function SiteFooter() {
   return (
     <footer id="recursos" className="bg-slate-950 text-slate-400">
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="font-extrabold text-white">EmpléateRD</p>
           <p className="mt-2 text-sm">
@@ -17,6 +18,7 @@ export function SiteFooter() {
             <Link href="/blog">Consejos y recursos</Link>
           </div>
         </div>
+        <SuggestionForm />
         <div className="text-sm">
           <p className="font-bold text-white">Información</p>
           <p className="mt-3">Privacidad · Términos · Ayuda</p>

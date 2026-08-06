@@ -5,6 +5,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { getJob, type Job } from "@/data/jobs";
 import { normalizeJob } from "@/lib/public-jobs";
+import { JobEngagement } from "@/components/job-engagement";
 type Doc = { id: number; original_name: string; kind: string };
 export default function Apply() {
   const { slug } = useParams<{ slug: string }>();
@@ -73,6 +74,7 @@ export default function Apply() {
     return <main className="p-10 text-center">Vacante no encontrada.</main>;
   return (
     <main className="min-h-[70vh] bg-slate-50 px-5 py-10">
+      <JobEngagement slug={slug} event="apply_start" />
       <div className="mx-auto max-w-2xl">
         <Link
           href={`/empleos/${slug}`}
@@ -111,14 +113,15 @@ export default function Apply() {
               </select>
             </label>
             {!docs.length && (
-              <p className="text-sm text-amber-700">
-                No tienes un CV cargado. Puedes añadirlo desde{" "}
+              <p className="rounded-xl bg-emerald-50 p-3 text-sm text-emerald-800">
+                Usaremos automáticamente el CV creado con los datos de tu perfil. También puedes añadir un archivo desde{" "}
                 <Link className="font-bold underline" href="/mi-perfil">
                   Mi perfil
                 </Link>
                 .
               </p>
             )}
+            {!!docs.length && <p className="text-xs text-slate-500">Si no seleccionas un archivo, la empresa recibirá automáticamente tu CV generado en EmpleateRD.</p>}
             <label className="block text-sm font-bold">
               Carta de presentación opcional
               <textarea

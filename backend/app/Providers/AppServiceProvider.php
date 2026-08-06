@@ -8,6 +8,7 @@ use App\Models\ApplicationMessage;
 use App\Models\Interview;
 use App\Models\TalentInvitation;
 use App\Models\Job;
+use App\Models\JobApplication;
 use App\Services\MultichannelNotifier;
 use App\Services\VideoMeetingService;
 
@@ -29,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
         ResetPassword::createUrlUsing(fn (object $user, string $token): string => rtrim(config('app.frontend_url'), '/').'/restablecer?token='.$token.'&email='.urlencode($user->getEmailForPasswordReset()));
         Job::creating(function (Job $job): void {
             $job->country_code ??= $job->company()->value('country_code') ?? 'DO';
+        });
+        JobApplication::created(function (JobApplication $application): void {
+            foreach ($application->job->company->members()->wherePivot('status', 'active')->get() as $member) {
+                app(MultichannelNotifier::class)->send($member, 'new_application', 'Nueva postulación', $application->user->name.' aplicó a '.$application->job->title.'. Su perfil y CV están disponibles.', '/empresa/candidatos/'.$application->id);
+            }
         });
         TalentInvitation::created(function (TalentInvitation $invitation): void {app(MultichannelNotifier::class)->send($invitation->candidate,'talent_invitation','Nueva invitación laboral',$invitation->company->name.' te invitó a considerar '.$invitation->job->title.'.','/talento');});
         Interview::creating(function (Interview $interview): void {if($interview->format==='video'&&!$interview->location_or_link)$interview->location_or_link=app(VideoMeetingService::class)->create();});
